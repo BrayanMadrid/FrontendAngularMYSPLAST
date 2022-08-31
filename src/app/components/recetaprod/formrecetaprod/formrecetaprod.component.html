@@ -1,0 +1,165 @@
+<div class="row">
+    <div class="col-xl-12 main-content pl-xl-4 pr-xl-5">
+        <h2 style="font-size: 30px;" class="page-title">CREAR RECETA DE PRODUCCIÓN</h2>
+
+        <div class="alert alert-danger alert-dismissible" *ngIf="fechas.invalid && (fechas.dirty || fechas.touched)">
+            <div *ngIf="fechas.errors.required">
+                La fecha es requerida
+            </div>
+        </div>    
+        <div class="alert alert-danger alert-dismissible"
+            *ngIf="nom_RECETA.invalid && (nom_RECETA.dirty || nom_RECETA.touched)">
+            <div *ngIf="nom_RECETA.errors.required">
+                La descripción de la orden es requerida
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form #role="ngForm" class="forms-sample">
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="nombre1">FECHA</label>
+                                    <div>
+                                        <input type="date" class="form-control" [(ngModel)]="recetaprod.fecha"
+                                            name="fecha" #fechas="ngModel" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="descripcion">NOMBRE DE RECETA</label>
+                                <div>
+                                    <input  #nom_RECETA="ngModel" type="text" class="form-control" required name="nom_RECETA" [(ngModel)]="recetaprod.nom_RECETA">
+                                </div>
+                            </div>
+                                                <div class="form-group">
+                                                    <label>INGRESA EL NOMBRE DEL PRODUCTO</label>
+                                                    <div>
+                                                        <input type="text" class="form-control" placeholder="Añadir Item"
+                                                            aria-label="Productos" matInput [formControl]="AutoCompleteReceta"
+                                                            [matAutocomplete]="auto2">
+                                                    </div>
+                                                    <mat-autocomplete #auto2="matAutocomplete" [displayWith]="mostrarNombreReceta"
+                                                        (optionSelected)="seleccionarProductoReceta($event)">
+                                                        <mat-option *ngFor="let producto of productosFiltradosReceta | async"
+                                                            [value]="producto">
+                                                            {{producto.nombre}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+        
+                                                </div>
+                              
+                                <div class="row">
+                                   
+                                    <div class="col">
+                                        <label for="descripcion">PRODUCTO SELECCIONADO</label>
+                                        <input type="text" class="form-control" id="productoreceta" required
+                                            name="productoreceta" readonly>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>INGRESA EL NOMBRE DEL PRODUCTO</label>
+                                            <div>
+                                                <input type="text" class="form-control" placeholder="Añadir Item"
+                                                    aria-label="Productos" matInput [formControl]="AutoComplete"
+                                                    [matAutocomplete]="auto">
+                                            </div>
+                                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre"
+                                                (optionSelected)="seleccionarProducto($event)">
+                                                <mat-option *ngFor="let producto of productosFiltrados | async"
+                                                    [value]="producto">
+                                                    {{producto.nombre}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <table class="table table-bordered table-dark table-hover text-center">
+                                                <thead class="bg-primary">
+                                                    <tr>
+                                                        <th class="text-dark col-sm-3">Producto</th>
+                                                        <th class="text-dark col-sm-2">Cantidad</th>
+                                                        <th class="text-dark col-sm-1">Und. Medida</th>
+                                                        <th class="text-dark col-sm-1">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of recetaprod.items">
+                                                        <td>{{item.id_PRODUCTO.nombre}}</td>
+                                                        <td><input type="number" value="{{item.cantidad}}"
+                                                                class="form-control"
+                                                                (change)="actualizarCantidad(item.id_PRODUCTO.id_PRODUCTO, $event)">
+                                                        </td>
+                                                        <td>{{item.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA}}</td>
+                                                        <td><button class="btn btn-danger btn-sm" type="button"
+                                                                (click)="eliminarItemrecetaprod(item.id_PRODUCTO.id_PRODUCTO)">x</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input style="font-weight: 500; font-size: 14px;"
+                                                                    type="submit" value="REGISTRAR RECETA DE PRODUCCIÓN"
+                                                                    class="btn btn-block  btn-outline-primary"
+                                                                    [disabled]="role.form.invalid || recetaprod.items.length == 0"
+                                                                    (click)="create()">
+                                                            </div>
+                                                        </div><!-- Col -->
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input style="font-weight: 500; font-size: 14px;"
+                                                                    type="submit" value="VOLVER" [routerLink]="['/generalrc/recetaprod']"
+                                                                    class="btn btn-block btn-outline-danger">
+                                                            </div>
+                                                        </div><!-- Col -->
+                                                    </div><!-- Row -->
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

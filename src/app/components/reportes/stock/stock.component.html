@@ -1,0 +1,104 @@
+<nav class="page-breadcrumb">
+    <h2 style="font-size: 30px;" class="page-title">STOCK DE PRODUCTOS</h2>
+  </nav>
+  
+  
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 style="font-weight: 500; font-size: 16px;" class="card-title">BUSQUEDA PERSONALIZADA</h6>
+          <form>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="">ALMACÉN</label>
+                  <div>
+                    <select id="almacenes" class="form-control" name="almacen" [(ngModel)]="selectedAlmacen.id_ALMACEN"
+                      (ngModelChange)="handleAlmacenChange($event)" #almacen>
+                      <option *ngFor="let almacen of almacenes" value={{almacen.id_ALMACEN}}>{{almacen.nom_ALMACEN}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="">SECTOR</label>
+                  <div>
+                    <select id="sector" class="form-control" [(ngModel)]="selectedSector.id_SECTOR"
+                      name="sector" #sector>
+                      <option *ngFor="let sector of sectores" value={{sector.id_SECTOR}}>
+                        {{sector.nom_SECTOR}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label>PRODUCTO</label>
+                  <div>
+                    <input type="text" class="form-control" placeholder="Añadir Item"
+                        aria-label="Productos" matInput [formControl]="AutoComplete"
+                        [matAutocomplete]="auto" #producto>
+                </div>
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre">
+                    <mat-option *ngFor="let producto of productosFiltrados | async"  [value]="producto" (click)="asignarValorProducto(producto.id_PRODUCTO)">
+                        {{producto.nombre}}
+                    </mat-option>
+                </mat-autocomplete>
+              </div>
+  
+              </div><!-- Col -->
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <button style="font-weight: 500; font-size: 14px; margin-top: 30px;" type="submit" class="btn btn-block btn-dark"
+                    role="button"
+                    (click)="filtrarStock(sector.value, almacen.value)">BUSCAR</button>
+                </div>
+              </div><!-- Col -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <table  id="productostocks" class="table table-bordered table-dark table-hover text-center">
+                    <thead class="bg-primary">
+                      <tr>
+                        <th class="text-dark">Producto</th>
+                        <th class="text-dark">Marca</th>
+                        <th class="text-dark">Almacén</th>
+                        <th class="text-dark">Sub. Almacén</th>
+                        <th class="text-dark">Cantidad</th>
+                        <th class="text-dark">Und. Medida</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let productostock of productostocks">
+                        <td>{{productostock.id_PRODUCTO.nombre}}</td>
+                        <td>{{productostock.id_PRODUCTO.id_MARCA.nom_MARCA}}</td>
+                        <td>{{productostock.id_SECTOR.id_ALMACEN.nom_ALMACEN}}</td>
+                        <td>{{productostock.id_SECTOR.nom_SECTOR}}</td>
+                        <td>{{productostock.cantidad}}</td>
+                        <td>{{productostock.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div><!-- Col -->
+            </div><!-- Row -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

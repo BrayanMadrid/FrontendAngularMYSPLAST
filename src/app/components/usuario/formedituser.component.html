@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-xl-12 main-content pl-xl-4 pr-xl-5">
+        <h2 style="font-size: 30px;" class="page-title">EDITAR DATOS DE USUARIO</h2>
+
+        <div *ngIf="usernames.invalid && (usernames.dirty || usernames.touched)"
+            class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+            El username es requerido
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)">
+            <div *ngIf="nombres.errors.required">
+                El nombre es requerido
+            </div>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible" *ngIf="correos.invalid && (correos.dirty || correos.touched)">
+            <div *ngIf="correos.errors.required">
+                El correo es requerido
+            </div>
+            <div *ngIf="correos.errors.email">
+                El formato no es valido
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form role="form">
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="username">USERNAME</label>
+                                    <div>
+                                        <input type="text" class="form-control" #usernames="ngModel" required
+                                            [(ngModel)]="usuario.username" name="username">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre">NOMBRES</label>
+                                <div>
+                                    <input type="text" class="form-control" #nombres="ngModel" required
+                                        [(ngModel)]="usuario.nombre" name="nombre">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">CORREO</label>
+                                <div>
+                                    <input type="text" class="form-control" #correos="ngModel" required email
+                                        [(ngModel)]="usuario.correo" name="correo">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="rol">ROLES</label>
+                                <div>
+                                    <input type="hidden" class="form-control">
+                                    <select class="form-control" name="rol" #a [(ngModel)]="rolesmodelSeleccionado"
+                                    (ngModelChange)="asignarValorRoles($event)" >
+                                        <option *ngFor="let rol of rol" (value)="rol.id"
+                                        [ngValue]="rol">{{rol.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                    
+                            <div class="row">
+                                <div class="col-md-12 stretch-card">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input style="font-weight: 500; font-size: 14px;"
+                                                                type="submit" value="ACTUALIZAR"
+                                                                class="btn btn-block  btn-outline-primary"
+                                                                (click)='update()'>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <input style="font-weight: 500; font-size: 14px;"
+                                                                type="submit" value="VOLVER"
+                                                                class="btn btn-block btn-outline-danger"
+                                                                routerLink="/generalus/usuario">
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                </div><!-- Row -->
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <table id="roles"
+                                                class="table table-bordered  table-hover text-center">
+                                                <thead>
+                                                    <tr>
+                                                        ROLES DE USUARIO
+                                                    </tr>
+                                                    <tr>
+                                                        <th class=" col-sm-3">ID</th>
+                                                        <th class=" col-sm-3">Rol</th>
+                                                        <th class=" col-sm-3">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let rol of rolesSeleccionados">
+                                                        <td>{{rol.id}}</td>
+                                                        <td>{{rol.nombre}}</td>
+                                                        <td>
+                                                            <button class="btn btn-danger btn-sm btn-icon" type="button"
+                                                                (click)="eliminarRol(rol)"><i
+                                                                    class="feather icon-x-square"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

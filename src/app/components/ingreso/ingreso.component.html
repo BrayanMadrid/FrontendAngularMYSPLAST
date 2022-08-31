@@ -1,0 +1,136 @@
+<nav class="page-breadcrumb">
+    <h2 style="font-size: 30px;" class="page-title">INGRESO DE PRODUCTOS</h2>
+  </nav>
+  
+  
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 style="font-weight: 500; font-size: 16px;" class="card-title">BUSQUEDA PERSONALIZADA</h6>
+          <form>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="">FECHA DE INICIO</label>
+                  <div>
+                    <input id="fecha1" type="date" class="form-control" #fecha1>
+                  </div>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="">FECHA FINAL</label>
+                  <div>
+                    <input id="fecha2" type="date" class="form-control" #fecha2>
+                  </div>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="almacen">ALMACÉN</label>
+                  <div>
+                    <select id="almacenes" class="form-control" name="almacen" [(ngModel)]="selectedAlmacen.id_ALMACEN"
+                       (ngModelChange)="handleAlmacenChange($event)" #almacen>
+                      <option *ngFor="let almacen of almacenes" value={{almacen.id_ALMACEN}}>{{almacen.nom_ALMACEN}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <label for="sector">SECTOR</label>
+                  <div>
+                    <select id="sector" class="form-control" [(ngModel)]="selectedSector.id_SECTOR"
+                      name="sector" #sector>
+                      <option *ngFor="let sector of sectores" value={{sector.id_SECTOR}}>
+                        {{sector.nom_SECTOR}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div><!-- Col -->
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <button *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_JEFE'||'ROLE_ALMACEN')" style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-dark" [routerLink]="['/generalwi/formingreso']"><i
+                    class="fa fa-user-plus"></i> CREAR INGRESO DE PRODUCTO</button>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <button style="font-weight: 500; font-size: 14px;" type="submit" class="btn btn-block btn-dark" role="button"
+                    (click)="filtrarIngresos(sector.value, almacen.value,fecha1.value, fecha2.value)">BUSCAR</button>
+                </div>
+              </div><!-- Col -->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <table id="ingresos" class="table table-bordered table-dark table-hover text-center">
+                    <thead class="bg-primary">
+                      <tr>
+                        <th class="text-dark">Fecha</th>
+                        <th class="text-dark">Serie</th>
+                        <th class="text-dark">Almacén</th>
+                        <th class="text-dark">Sector</th>
+                        <th class="text-dark">Responsable</th>
+                        <th class="text-dark">Tipo Transacción</th>
+                        <th class="text-dark">Doc. Referencia</th>
+                        <th class="text-dark">Estado</th>
+                        <th class="text-dark" *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_JEFE'||'ROLE_ALMACEN')">Anular</th>
+                        <th class="text-dark">Imprimir</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let ingreso of ingresos">
+                        <td>{{ingreso.fechatran}}</td>
+                        <td>{{ingreso.nro_TRAN}}</td>
+                        <td>{{ingreso.id_SECTOR.id_ALMACEN.nom_ALMACEN}}</td>
+                        <td>{{ingreso.id_SECTOR.nom_SECTOR}}</td>
+                        <td>{{ingreso.id_PERSONA.nombres +" "+ ingreso.id_PERSONA.ape_PAT +" "+
+                            ingreso.id_PERSONA.ape_MAT}}
+                        </td>
+                        <td>{{ingreso.id_TIPOTRANSACCION.nom_TIPOTRANSACCION}}</td>
+                        <td>{{ingreso.guia_REF}}</td>
+                        <td *ngIf="ingreso.estado =='N' else elseBlock"><span class="badge bg-danger">ANULADO</span></td>
+                        <ng-template #elseBlock>
+                          <td><span class="badge bg-success">INGRESADO</span></td>
+                        </ng-template>
+                        <td *ngIf="authService.nothasRole('ROLE_ADMIN'||'ROLE_JEFE'||'ROLE_ALMACEN') else elseButton" style="display: none;"></td>
+                        <ng-template #elseButton>
+                        <td *ngIf="ingreso.estado =='I' else elseifButton">
+                          <button type="button" class="btn btn-danger btn-icon btn-sm" name="anular"
+                            (click)="anularWhingreso(ingreso)"><i class="feather icon-x-square"></i>
+                          </button>
+                        </td>
+                      </ng-template>
+                        <ng-template #elseifButton>
+                          <td><button type="button" class="btn btn-secondary btn-icon btn-sm" disabled=""><i class="feather icon-x-square"></i>
+                            </button></td>
+                        </ng-template>
+                        <td><button type="button" class="btn btn-primary btn-icon btn-sm" (click)="createPDFIngreso(ingreso)"
+                          name="visualizar"><i class="feather icon-printer"></i></button></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div><!-- Col -->
+            </div><!-- Row -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

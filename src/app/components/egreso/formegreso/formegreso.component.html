@@ -1,0 +1,201 @@
+<!-- LLAMA AL FORMPERSONA HTML EL CUAL ESTÁ DENTRO DE UN MODAL Y SE HACE LA VALIDACION PARA QUE SE MUESTRE EL MODAL SOLO SI EL MODAL ESTÁ INACTIVO -->
+<app-findnaturaleg *ngIf="modalService.modal2" [natural]="naturalSeleccionada"></app-findnaturaleg>
+
+<div class="row">
+    <div class="col-xl-12 main-content pl-xl-4 pr-xl-5">
+        <h2 style="font-size: 30px;" class="page-title">REGISTRAR SALIDA DE MERCADERÍA</h2>
+
+        <div class="alert alert-danger alert-dismissible" *ngIf="fechas.invalid && (fechas.dirty || fechas.touched)">
+            <div *ngIf="fechas.errors.required">
+                La fecha es requerida
+            </div>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible"
+            *ngIf="almacenes.invalid && (almacenes.dirty || almacenes.touched)">
+            <div *ngIf="almacenes.errors.required">
+                El alamcen es requerido
+            </div>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible"
+            *ngIf="sectores.invalid && (sectores.dirty || sectores.touched)">
+            <div *ngIf="sectores.errors.required">
+                El sub almacen es requerido , previo escoga el almacen
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form #role="ngForm" class="forms-sample">
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="nombre1">FECHA</label>
+                                    <div>
+                                        <input type="date" class="form-control" [(ngModel)]="egreso.fechatran"
+                                            name="fecha" #fechas="ngModel" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="persona">RESPONSABLE</label>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <button style="font-weight: 500; font-size: 13px;" type="button" class="btn btn-outline-primary"
+                                            (click)="abrirModalNatural()">SELECCIONAR</button>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="responsable" required
+                                            name="responsable" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="almacen">ALMACÉN</label>
+                                <div>
+                                    <select class="form-control" [(ngModel)]="selectedAlmacen.id_ALMACEN"
+                                        #almacenes="ngModel" required name="almacen"
+                                        (ngModelChange)="handleAlmacenChange($event)">
+                                        <option *ngFor="let almacen of almacen" value={{almacen.id_ALMACEN}}>
+                                            {{almacen.nom_ALMACEN}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sector">SECTOR</label>
+                                <div>
+                                    <select class="form-control" [(ngModel)]="egreso.id_SECTOR"
+                                        #sectores="ngModel" required name="subalmacen">
+                                        <option *ngFor="let sector of sector" [ngValue]="sector">
+                                            {{sector.nom_SECTOR}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="categoriatransaccion">CATEGORIA TRANSACCIÓN</label>
+                                <div>
+                                    <select class="form-control" [(ngModel)]="egreso.categoriatransaccion"
+                                        #categoriatransacciones="ngModel" required name="categoriatransaccion">
+                                        <option *ngFor="let categoriatransaccion of categoriatransaccion"
+                                            [ngValue]="categoriatransaccion">
+                                            {{categoriatransaccion.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="centrocosto">CENTRO DE COSTO</label>
+                                <div>
+                                    <select class="form-control" [(ngModel)]="egreso.id_CENTROCOSTO"
+                                        #centrocostos="ngModel" required name="centrocosto">
+                                        <option *ngFor="let centrocosto of centrocosto" [ngValue]="centrocosto">
+                                            {{centrocosto.nom_CENTROCOSTO}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>INGRESA EL NOMBRE DEL PRODUCTO</label>
+                                            <div>
+                                                <input type="text" class="form-control" placeholder="Añadir Item"
+                                                    aria-label="Productos" matInput [formControl]="AutoComplete"
+                                                    [matAutocomplete]="auto">
+                                            </div>
+                                            <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre"
+                                                (optionSelected)="seleccionarProducto($event)">
+                                                <mat-option *ngFor="let producto of productosFiltrados | async"
+                                                    [value]="producto">
+                                                    {{producto.nombre}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <table class="table table-bordered table-dark table-hover text-center">
+                                                <thead class="bg-primary">
+                                                    <tr>
+                                                        <th class="text-dark">Línea</th>
+                                                        <th class="sorting col-sm-5 text-dark">Producto</th>
+                                                        <th class="sorting col-sm-2 text-dark">Cantidad</th>
+                                                        <th class="text-dark">Und. Medida</th>
+                                                        <th class="text-dark">Eliminar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of egreso.items">
+                                                        <td>{{item.linea}}</td>
+                                                        <td>{{item.id_PRODUCTO.nombre}}</td>
+                                                        <td><input type="number" value="{{item.cantidad}}"
+                                                                class="form-control"
+                                                                (change)="actualizarCantidad(item.id_PRODUCTO.id_PRODUCTO, $event)">
+                                                        </td>
+                                                        <td>{{item.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA}}</td>
+                                                        <td><button class="btn btn-danger btn-sm btn-icon" type="button"
+                                                                (click)="eliminarItemSalida(item.id_PRODUCTO.id_PRODUCTO)"><i class="feather icon-x-square"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input style="font-weight: 500; font-size: 14px;" type="submit" value="CREAR SALIDA"
+                                                                    class="btn btn-block  btn-outline-primary"
+                                                                    [disabled]="role.form.invalid || egreso.items.length == 0"
+                                                                    (click)="create()">
+                                                            </div>
+                                                        </div><!-- Col -->
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input style="font-weight: 500; font-size: 14px;" [routerLink]="['/generalws/egreso']" type="submit" value="VOLVER"
+                                                                    class="btn btn-block btn-outline-danger">
+                                                            </div>
+                                                        </div><!-- Col -->
+                                                    </div><!-- Row -->
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

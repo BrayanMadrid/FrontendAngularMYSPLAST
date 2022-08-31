@@ -1,0 +1,114 @@
+<nav class="page-breadcrumb">
+    <h2 style="font-size: 30px;" class="page-title">RECETAS DE PRODUCCIÓN</h2>
+  </nav>
+  
+  
+  <div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 style="font-weight: 500; font-size: 16px;" class="card-title">BUSQUEDA PERSONALIZADA</h6>
+          <form>
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="">NRO. RECETA</label>
+                  <div>
+                    <input id="nroreceta" type="text" class="form-control" #nroreceta>
+                  </div>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="">NOM. RECETA</label>
+                  <div>
+                    <input id="nomreceta" type="text" class="form-control" #nomreceta>
+                  </div>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label>PRODUCTO</label>
+                  <div>
+                    <input type="text" class="form-control" placeholder="Añadir Item" aria-label="Productos" matInput
+                      [formControl]="AutoComplete" [matAutocomplete]="auto" #producto>
+                  </div>
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre">
+                    <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto"
+                      (click)="asignarValorProducto(producto.id_PRODUCTO)">
+                      {{producto.nombre}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </div>
+              </div><!-- Col -->
+            </div>
+              <div class="row">
+              <div *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_LOGISTICA')" class="col-sm-6">
+                <div class="form-group">
+                  <button style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-dark"
+                  [routerLink]="['/generalrc/formrecetaprod']"><i class="fa fa-user-plus"></i> CREAR RECETA DE PRODUCCIÓN</button>
+                </div>
+              </div><!-- Col -->
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <button style="font-weight: 500; font-size: 14px;" type="submit" class="btn btn-block btn-dark"
+                    role="button"
+                    (click)="filtrarKardex(nroreceta.value, nomreceta.value)">BUSCAR</button>
+                </div>
+              </div><!-- Col -->
+              </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="table-responsive">
+                  <table id="recetaprods" class="table table-bordered table-dark table-hover text-center">
+                    <thead class="bg-primary">
+                      <tr>
+                        <th class="text-dark">Nro. Receta</th>
+                        <th class="text-dark">Nom. Receta</th>
+                        <th class="text-dark">Producto</th>
+                        <th class="text-dark">Fecha</th>
+                        <th class="text-dark">Estado</th>
+                        <th class="text-dark">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let receta of recetaprods">
+                        <td>{{receta.nro_RECETA}}</td>
+                        <td>{{receta.nom_RECETA}}</td>
+                        <td>{{receta.id_PRODUCTO.nombre}}</td>
+                        <td>{{receta.fecha}}</td>
+                        <td *ngIf="receta.estado =='N' else elseBlock"><span class="badge bg-danger">Anulado</span></td>
+                      <ng-template #elseBlock>
+                        <td><span class="badge bg-success">Activo</span></td>
+                      </ng-template>
+                      <td>
+                        <button style="margin-right: 2px;" type="button"  class="btn btn-primary btn-icon btn-sm" name="actualizar"
+                          (click)="abrirModal(receta)"><i class="feather icon-edit"></i>
+                        </button>
+                        <button style="margin-left: 2px;" type="button" class="btn btn-danger btn-icon btn-sm" name="anular"
+                          (click)='anularRecetaprod(receta)'><i class="feather icon-edit"></i>
+                        </button>
+                      </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div><!-- Col -->
+            </div><!-- Row -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

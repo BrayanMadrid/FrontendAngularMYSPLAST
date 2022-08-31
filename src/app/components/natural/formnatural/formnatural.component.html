@@ -1,0 +1,249 @@
+<div *ngIf="modalservice.modal" class="modal" aria-hidden="true" tabindex="-1" style="display: table;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block;">
+                <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title text-center">PERSONA NATURAL</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert alert-danger" *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)">
+                    <div *ngIf="nombres.errors.required">
+                        El nombre es requerido
+                    </div>
+                    <div *ngIf="nombres.errors.pattern">
+                        El nombre solo puede contener letras
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="ape_pat.invalid && (ape_pat.dirty || ape_pat.touched)">
+                    <div *ngIf="ape_pat.errors.required">
+                        El apellido paterno es requerido
+                    </div>
+                    <div *ngIf="ape_pat.errors.pattern">
+                        El apellido paterno solo puede contener letras
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="ape_mat.invalid && (ape_mat.dirty || ape_mat.touched)">
+                    <div *ngIf="ape_mat.errors.required">
+                        El apellido materno es requerido
+                    </div>
+                    <div *ngIf="ape_mat.errors.pattern">
+                        El apellido materno solo puede contener letras
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="nrodoc.invalid && (nrodoc.dirty || nrodoc.touched)">
+                    <div *ngIf="nrodoc.errors.required">
+                        El Nro de Documento es requerido
+                    </div>
+                    <div *ngIf="nrodoc.errors.minlength">
+                        El DNI debe tener 8 carácteres
+                    </div>
+                    <div *ngIf="nrodoc.errors.maxlength">
+                        El DNI debe tener 8 carácteres
+                    </div>
+                    <div *ngIf="nrodoc.errors.pattern">
+                        El DNI solo debe contener números
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                    <div *ngIf="telefono.errors.minlength">
+                        El telefono debe tener 9 carácteres
+                    </div>
+                    <div *ngIf="telefono.errors.maxlength">
+                        El telefono debe tener 9 carácteres
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="distrito.invalid && (distrito.dirty || distrito.touched)">
+                    <div *ngIf="distrito.errors.required">
+                        El distrito es requerido
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="colaborador.invalid && (colaborador.dirty || colaborador.touched)">
+                    <div *ngIf="colaborador.errors.required">
+                        El colaborador es requerido
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                    <div *ngIf="direccion.errors.required">
+                        La dirección es requerida
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="tipodoc.invalid && (tipodoc.dirty || tipodoc.touched)">
+                    <div *ngIf="tipodoc.errors.required">
+                        El tipo de documento es requerido
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                    <div *ngIf="correo.errors.email">
+                        Formato de correo inválido
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <form #empresaForm="ngForm">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="nombres">NOMBRES</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="natural.nombres" name="nombres" required pattern="[a-zA-Z ]{2,254}"
+                                                        #nombres="ngModel" placeholder="Ingresa el nombre">
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="ape_pat">APELLIDO PATERNO</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="natural.ape_PAT" name="ape_pat" required pattern="^[a-zA-Z ]{2,254}"
+                                                        #ape_pat="ngModel" placeholder="Ingresa el apellido paterno">
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="ape_mat">APELLIDO MATERNO</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="natural.ape_MAT" name="ape_mat" required pattern="^[a-zA-Z ]{2,254}"
+                                                        #ape_mat="ngModel" placeholder="Ingresa el apellido materno">
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="tipodoc">TIPO DOCUMENTO</label>
+                                                    <select [compareWith]="compararTipodoc" class="form-control"
+                                                        [(ngModel)]="natural.id_TIPODOC"  name="tipodoc" required
+                                                        #tipodoc="ngModel">
+                                                        <option *ngFor="let tipodoc of tipodocs" [ngValue]="tipodoc">
+                                                            {{tipodoc.nom_TIPODOC}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="nrodoc">NRO. DOCUMENTO</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="natural.nrodoc"
+                                                        name="ruc" required minlength="8" maxlength="8" pattern="^[0-9]*$"
+                                                        #nrodoc="ngModel" placeholder="Ingresa el número de Documento">
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="telefono">TELÉFONO</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="natural.telefono" name="telefono" minlength="9"
+                                                        maxlength="9" #telefono="ngModel"
+                                                        placeholder="Ingresa el número de teléfono">
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="departamento">DEPARTAMENTO</label>
+                                                    <select [compareWith]="compararDepartamento" class="form-control" name="departamento"
+                                                        [(ngModel)]="selectedDepartamento.id_departamento"
+                                                        (ngModelChange)="handleDepartamentoChange($event)"
+                                                        #departamento="ngModel">
+                                                        <option *ngFor="let departamento of departamentos"
+                                                            value={{departamento.id_departamento}}>
+                                                            {{departamento.nom_departamento}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="provincia">PROVINCIA</label>
+                                                    <select [compareWith]="compararProvincia" class="form-control" name="provincia"
+                                                        [(ngModel)]="selectedProvincia.id_provincia"
+                                                        (ngModelChange)="handleProvinciaChange($event)"
+                                                        #provincia="ngModel">
+                                                        <option *ngFor="let provincia of provincias"
+                                                            value={{provincia.id_provincia}}>{{provincia.nom_provincia}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="distrito">DISTRITO</label>
+                                                    <select [compareWith]="compararDistrito" class="form-control"
+                                                        [(ngModel)]="natural.id_DISTRITO" name="distrito" required
+                                                        #distrito="ngModel">
+                                                        <option *ngFor="let distrito of distritos" [ngValue]="distrito">
+                                                            {{distrito.nom_distrito}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="direccion">DIRECCIÓN</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="natural.direccion" name="direccion" required
+                                                        #direccion="ngModel" placeholder="Ingresa la dirección">
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="correo">CORREO ELECTRONICO</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="natural.correo"
+                                                        name="correo" email #correo="ngModel"
+                                                        placeholder="Ingrese el correo electronico">
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="distrito">COLABORADOR</label>
+                                                    <select  class="form-control"
+                                                        [(ngModel)]="natural.flag_TRABAJADOR" name="colaborador" required
+                                                        #colaborador="ngModel">
+                                                            <option  value="Y">Si</option>
+                                                            <option  value="N">No</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="modal-body">
+                    
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-block btn-primary" role="button" (click)='create()'
+                                *ngIf="!natural.id_PERSONA else elseBlock"
+                                [disabled]="!empresaForm.form.valid">CREAR</button>
+                            <ng-template #elseBlock>
+                                <button type="button" class="btn btn-block btn-primary" 
+                                    (click)='update()' [disabled]="!empresaForm.form.valid">Actualizar</button>
+                            </ng-template>
+                        </div>
+                        <div class="col-sm-6">
+                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-danger"
+                                data-dismiss="modal">CERRAR</button>
+                        </div>
+                    </div><!-- Row -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

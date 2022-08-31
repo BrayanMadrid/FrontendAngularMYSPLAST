@@ -1,0 +1,83 @@
+<app-formproducto *ngIf="modalService.modal" [producto]="productoSeleccionado"></app-formproducto>
+
+<nav class="page-breadcrumb">
+  <h2 style="font-size: 30px;" class="page-title">PRODUCTO</h2>
+</nav>
+
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 style="font-weight: 500; font-size: 16px;" class="card-title">REGISTRAR NUEVO PRODUCTO</h6>
+        <form>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <div>
+                  <button style="font-weight: 600; font-size: 13px;" type="button" class="btn btn-primary btn-icon-text" (click)="abrirModalNuevo()">
+                    <i class="feather icon-plus-square btn-icon-prepend"></i>
+                    CREAR
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 style="font-weight: 500; font-size: 16px;" class="card-title">LISTADO DE PRODUCTOS</h6>
+        <form>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="table-responsive">
+                <table id="productos" class="table table-bordered table-dark table-hover text-center">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th class="col-md-9 text-dark">Nombre</th>
+                      <th class="col-md-9 text-dark">Un. Med.</th>
+                      <th class="col-md-9 text-dark">Marca</th>
+                      <th class="col-md-9 text-dark">Categoria</th>
+                      <th class="col-md-9 text-dark">Estado</th>
+                      <th class="col-md-9 text-dark">Descripción</th>
+                      <th class="col-md-1 text-dark">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let producto of productos">
+                      <td>{{producto.nombre}}</td>
+                      <td>{{producto.id_UNMEDIDA.nom_UNMEDIDA}}</td>
+                      <td>{{producto.id_MARCA.nom_MARCA}}</td>
+                      <td>{{producto.id_CATEGORIA.nom_CATEGORIA}}</td>
+                      <td *ngIf="producto.estado =='I' else elseBlock"><span class="badge bg-danger">Inactivo</span></td>
+                      <ng-template #elseBlock>
+                        <td><span class="badge bg-success">Activo</span></td>
+                      </ng-template>
+                      <td>{{producto.desc_PRODUCTO}}</td>
+                      <td>
+                        <button style="margin-right: 2px;" type="button"  class="btn btn-primary btn-icon btn-sm" name="actualizar"
+                          (click)="abrirModal(producto)"><i class="feather icon-edit"></i>
+                        </button>
+                        <button style="margin-left: 2px;" type="button" class="btn btn-danger btn-icon btn-sm" name="eliminar"
+                          (click)='delete(producto)'><i class="feather icon-x-square"></i>
+                        </button>
+                      </td>
+            
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

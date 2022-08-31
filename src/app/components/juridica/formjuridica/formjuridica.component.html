@@ -1,0 +1,216 @@
+<div *ngIf="modalservice.modal" class="modal" tabindex="-1" style="display: table;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block;">
+                <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title text-center">PERSONA JURÍDICA</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert alert-danger alert-dismissible"
+                    *ngIf="razonsocial.invalid && (razonsocial.dirty || razonsocial.touched)">
+                    <div *ngIf="razonsocial.errors.required">
+                        La razón social es requerida
+                    </div>
+                    <div *ngIf="razonsocial.errors.pattern">
+                        La razón social solo puede contener letras
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="nrodoc.invalid && (nrodoc.dirty || nrodoc.touched)">
+                    <div *ngIf="nrodoc.errors.required">
+                        El RUC es requerido
+                    </div>
+                    <div *ngIf="nrodoc.errors.minlength">
+                        El RUC debe tener 11 carácteres
+                    </div>
+                    <div *ngIf="nrodoc.errors.maxlength">
+                        El RUC debe tener 11 carácteres
+                    </div>
+                    <div *ngIf="nrodoc.errors.pattern">
+                        El RUC solo debe contener números
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                    <div *ngIf="telefono.errors.minlength">
+                        El telefono debe tener 9 carácteres
+                    </div>
+                    <div *ngIf="telefono.errors.maxlength">
+                        El telefono debe tener 9 carácteres
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="distrito.invalid && (distrito.dirty || distrito.touched)">
+                    <div *ngIf="distrito.errors.required">
+                        El distrito es requerido
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)">
+                    <div *ngIf="direccion.errors.required">
+                        La dirección es requerida
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+                    <div *ngIf="correo.errors.email">
+                        Formato de correo inválido
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="actividad.invalid && (actividad.dirty || actividad.touched)">
+                    <div *ngIf="actividad.errors.required">
+                        La actividad es requerida
+                    </div>
+                    <div *ngIf="actividad.errors.pattern">
+                        La actividad solo puede contener letras
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <form #juridicaForm="ngForm">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="razonsocial">RAZÓN SOCIAL</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="juridica.razonsocial" name="razonsocial" required pattern="[.a-zA-Z ]{2,254}"
+                                                        #razonsocial="ngModel" placeholder="Ingresa la razón social">
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="tipodoc">TIPO DOCUMENTO</label>
+                                                    <select [compareWith]="compararTipodoc" class="form-control"
+                                                        [(ngModel)]="juridica.id_TIPODOC"  name="tipodoc" required
+                                                        #tipodoc="ngModel">
+                                                        <option *ngFor="let tipodoc of tipodocs" [ngValue]="tipodoc">
+                                                            {{tipodoc.nom_TIPODOC}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="nrodoc">RUC</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="juridica.nrodoc" name="ruc" required minlength="11" pattern="^[0-9]*$"
+                                                        maxlength="11" #nrodoc="ngModel"
+                                                        placeholder="Ingresa el número de Ruc">
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="departamento">DEPARTAMENTO</label>
+                                                    <select [compareWith]="compararDepartamento" class="form-control" name="departamento"
+                                                        [(ngModel)]="selectedDepartamento.id_departamento"
+                                                        (ngModelChange)="handleDepartamentoChange($event)"
+                                                        #departamento="ngModel">
+                                                        <option *ngFor="let departamento of departamentos"
+                                                            value={{departamento.id_departamento}}>
+                                                            {{departamento.nom_departamento}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="provincia">PROVINCIA</label>
+                                                    <select [compareWith]="compararProvincia" class="form-control" name="provincia"
+                                                        [(ngModel)]="selectedProvincia.id_provincia"
+                                                        (ngModelChange)="handleProvinciaChange($event)"
+                                                        #provincia="ngModel">
+                                                        <option *ngFor="let provincia of provincias"
+                                                            value={{provincia.id_provincia}}>{{provincia.nom_provincia}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="distrito">DISTRITO</label>
+                                                    <select [compareWith]="compararDistrito" class="form-control"
+                                                        [(ngModel)]="juridica.id_DISTRITO" name="distrito" required
+                                                        #distrito="ngModel">
+                                                        <option *ngFor="let distrito of distritos" [ngValue]="distrito">
+                                                            {{distrito.nom_distrito}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="direccion">DIRECCIÓN</label>
+                                            <input type="text" class="form-control" [(ngModel)]="juridica.direccion"
+                                                name="direccion" required #direccion="ngModel"
+                                                placeholder="Ingresa la dirección">
+                                        </div>
+                                    </div><!-- Col -->
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="correo">CORREO</label>
+                                            <input type="text" class="form-control" [(ngModel)]="juridica.correo"
+                                                name="correo" email #correo="ngModel"
+                                                placeholder="Ingrese el correo electronico">
+                                        </div>
+                                    </div><!-- Col -->
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="telefono">TELÉFONO</label>
+                                            <input type="text" class="form-control" [(ngModel)]="juridica.telefono"
+                                                name="telefono" minlength="9" maxlength="9" #telefono="ngModel"
+                                                placeholder="Ingresa el número de teléfono">
+                                        </div>
+                                    </div><!-- Col -->
+                                </div><!-- Row -->
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="actividad">ACTIVIDAD </label>
+                                            <select [compareWith]="compararActividades" class="form-control"
+                                                [(ngModel)]="juridica.id_ACTIVIDAD"  name="actividad" required
+                                                #actividad="ngModel">
+                                                <option *ngFor="let actividad of actividades" [ngValue]="actividad">
+                                                    {{actividad.nom_ACTIVIDAD}}</option>
+                                            </select>
+                                        </div>
+                                    </div><!-- Col -->
+                                </div><!-- Row -->
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <div class="modal-body">
+
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="submit" class="btn btn-block btn-primary" role="button" (click)='create()'
+                            *ngIf="!juridica.id_PERSONA else elseBlock"
+                            [disabled]="!juridicaForm.form.valid">CREAR</button>
+                        <ng-template #elseBlock>
+                            <button type="submit" class="btn btn-primary pull-right btn-block" role="button"
+                                (click)='update()' [disabled]="!juridicaForm.form.valid">ACTUALIZAR</button>
+                        </ng-template>
+                    </div>
+                    <div class="col-sm-6">
+                        <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-danger"
+                            data-dismiss="modal">CERRAR</button>
+                    </div>
+                </div><!-- Row -->
+            </div>
+        </div>
+    </div>
+</div>
+</div>

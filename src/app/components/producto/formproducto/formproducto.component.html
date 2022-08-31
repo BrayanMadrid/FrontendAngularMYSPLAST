@@ -1,0 +1,153 @@
+<app-findmarca *ngIf="modalservice.modal2" [marca]="marcaSeleccionada"></app-findmarca>
+
+<div *ngIf="modalservice.modal" class="modal" tabindex="-1" style="display: table;" id="formproducto">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block;">
+                <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title text-center">PRODUCTO</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert alert-danger alert-dismissible"
+                    *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                    <div *ngIf="nombre.errors.required">
+                        El nombre es requerido
+                    </div>
+                </div>
+                <div class="alert alert-danger"
+                    *ngIf="categoria.invalid && (categoria.dirty || categoria.touched)">
+                    <div *ngIf="categoria.errors.required">
+                        La Categoria es Requerida
+                    </div>
+                </div>
+                <div class="alert alert-danger" *ngIf="unmedida.invalid && (unmedida.dirty || unmedida.touched)">
+                    <div *ngIf="unmedida.errors.required">
+                        La Unidad de Medida es requerida
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <form #productoForm="ngForm">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <div class="form-group">
+                                                    <label for="nombre">NOMBRE</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="producto.nombre" name="nombre" required
+                                                        #nombre="ngModel" placeholder="Ingresa el Nombre">
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="categoria">CATEGORÍA</label>
+                                                    <select [compareWith]="compararCategoria" class="form-control"
+                                                        [(ngModel)]="producto.id_CATEGORIA" name="categoria" required
+                                                        #categoria="ngModel">
+                                                        <option *ngFor="let categoria of categorias" [ngValue]="categoria">
+                                                            {{categoria.nom_CATEGORIA}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="marca">MARCA</label>
+                                                    <div class="row">
+                                                        <div class="col-auto">
+                                                            <button style="font-weight: 500; font-size: 13px;" type="button"
+                                                                class="btn btn-outline-primary"
+                                                                (click)="abrirModalMarca()">SELECCIONAR</button>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="text" class="form-control" id="marca" required
+                                                                name="marca" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                  
+                                              </div><!-- Col -->
+                                              <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="descripcion">DESCRIPCION</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="producto.desc_PRODUCTO" name="descripcion" required
+                                                        #descripcion="ngModel"
+                                                        placeholder="Ingrese alguna descripción sobre el producto">
+                                                </div>
+                                            </div><!-- Col -->
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="unmedida">UND. MEDIDA</label>
+                                                    <select [compareWith]="compararUnmedida" class="form-control"
+                                                        [(ngModel)]="producto.id_UNMEDIDA" name="unmedida" required
+                                                        #unmedida="ngModel">
+                                                        <option *ngFor="let unmedida of unmedidas" [ngValue]="unmedida">
+                                                            {{unmedida.nom_UNMEDIDA}}</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="produccion">PRODUCCIÓN</label>
+                                                    <select  class="form-control"
+                                                        [(ngModel)]="producto.flag_PRODUCCION" name="produccion" required
+                                                        #produccion="ngModel">
+                                                            <option  value="Y">Si</option>
+                                                            <option  value="N">No</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="insumo">INSUMO</label>
+                                                    <select  class="form-control"
+                                                        [(ngModel)]="producto.flag_INSUMO" name="insumo" required
+                                                        #insumo="ngModel">
+                                                            <option  value="Y">Si</option>
+                                                            <option  value="N">No</option>
+                                                    </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-block btn-primary" role="button" (click)='create()'
+                                *ngIf="!producto.id_PRODUCTO else elseBlock"
+                                [disabled]="!productoForm.form.valid">CREAR</button>
+                            <ng-template #elseBlock>
+                                <button type="submit" class="btn btn-primary pull-right btn-block" role="button"
+                                    (click)='update()' [disabled]="!productoForm.form.valid">Actualizar</button>
+                            </ng-template>
+                        </div>
+                        <div class="col-sm-6">
+                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-danger"
+                                data-dismiss="modal">CERRAR</button>
+                        </div>
+                    </div><!-- Row -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<div *ngIf="modalservice.modal" class="modal" aria-hidden="true" tabindex="-1"  style="display: table;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block;">
+                <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title text-center">BÚSQUEDA DE EMPRESA</h3>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="">NRO. DOCUMENTO</label>
+                                                <div>
+                                                    <input id="nrodoc" type="text" class="form-control" #nrodoc>
+                                                </div>
+                                            </div>
+                                        </div><!-- Col -->
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="">RAZ. SOCIAL</label>
+                                                <div>
+                                                    <input id="razsoc" type="text" class="form-control" #razsoc>
+                                                </div>
+                                            </div>
+                                        </div><!-- Col -->
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <br>
+                                                <div>
+                                                    <button type="submit" class="btn btn-dark btn-block" role="button"
+                                                        style="margin-top: 10px;"
+                                                        (click)="filtrarJuridicas(nrodoc.value, razsoc.value)">BUSCAR</button>
+                                                </div>
+                                            </div>
+                                        </div><!-- Col -->
+                                    </div><!-- Row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <table id="findjuridicas"
+                                                    class="table table-dark table-striped table-bordered text-center">
+                                                    <thead class="bg-dark">
+                                                        <tr>
+                                                            <th class="sorting_asc">Nro. Documento</th>
+                                                            <th class="sorting">Nombres</th>
+                                                            <th class="sorting">Seleccionar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let juridica of juridicas">
+                                                            <td>{{juridica.nrodoc}}</td>
+                                                            <td>{{juridica.razonsocial}}</td>
+                                                            <td><button type="button" class="btn btn-outline-info"
+                                                                    (click)="seleccionarJuridica(juridica)"
+                                                                    name="seleccionar"><i
+                                                                        class="feather icon-check-square"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div><!-- Row -->
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="modal-footer">
+                    <div class="col-md-2">
+                        <button (click)="cerrarModal()" type="button" class="btn btn-block btn-danger"
+                            data-dismiss="modal">CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

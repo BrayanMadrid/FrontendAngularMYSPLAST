@@ -1,0 +1,72 @@
+<app-formsector *ngIf="modalService.modal" [sector]="sectorSeleccionada"></app-formsector>
+
+<nav class="page-breadcrumb">
+  <h2 style="font-size: 30px;" class="page-title">SECTOR</h2>
+</nav>
+
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 style="font-weight: 500; font-size: 16px;" class="card-title">REGISTRAR NUEVO SECTOR</h6>
+        <form>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <div>
+                  <button style="font-weight: 600; font-size: 13px;" type="button" class="btn btn-primary btn-icon-text" (click)="abrirModalNuevo()">
+                    <i class="feather icon-plus-square btn-icon-prepend"></i>
+                    CREAR
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 style="font-weight: 500; font-size: 16px;" class="card-title">LISTADO DE SECTORES</h6>
+        <form>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="table-responsive">
+                <table id="sectores" class="table table-bordered table-dark table-hover text-center">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th class="col-md-9 text-dark">Nombre</th>
+                      <th class="col-md-9 text-dark">Almacén</th>
+                      <th class="col-md-1 text-dark">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let sector of sectores">
+                      <td>{{sector.nom_SECTOR}}</td>
+                      <td>{{sector.id_ALMACEN.nom_ALMACEN}}</td>
+                      <td>
+                        <button style="margin-right: 2px;" type="button"  class="btn btn-primary btn-icon btn-sm" name="actualizar"
+                          (click)="abrirModal(sector)"><i class="feather icon-edit"></i>
+                        </button>
+                        <button style="margin-left: 2px;" type="button" class="btn btn-danger btn-icon btn-sm" name="eliminar"
+                          (click)='delete(sector)'><i class="feather icon-x-square"></i>
+                        </button>
+                      </td>
+            
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

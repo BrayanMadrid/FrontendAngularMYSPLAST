@@ -1,0 +1,63 @@
+<div *ngIf="modalservice.modal" class="modal" tabindex="-1" style="display: table;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block;">
+                <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title text-center">UNIDAD DE MEDIDA</h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="alert alert-danger alert-dismissible"
+                      *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                      <div *ngIf="nombre.errors.required">
+                          El nombre es requerido
+                      </div>
+                  </div>
+
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <form #unmedidaForm="ngForm">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="nombre">NOMBRE</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="unmedida.nom_UNMEDIDA"
+                                                        name="nombre" required  #nombre="ngModel"
+                                                        placeholder="Ingresa el Nombre">
+                                                </div>
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-block btn-primary" role="button" (click)='create()'
+                                *ngIf="!unmedida.id_UNMEDIDA else elseBlock"
+                                [disabled]="!unmedidaForm.form.valid">CREAR</button>
+                            <ng-template #elseBlock>
+                                <button type="submit" class="btn btn-primary pull-right btn-block" role="button"
+                                    (click)='update()' [disabled]="!unmedidaForm.form.valid">ACTUALIZAR</button>
+                            </ng-template>
+                        </div>
+                        <div class="col-sm-6">
+                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-danger"
+                                data-dismiss="modal">CERRAR</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

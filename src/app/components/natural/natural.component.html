@@ -1,0 +1,100 @@
+<app-formnatural *ngIf="modalService.modal" [natural]="naturalSeleccionada"></app-formnatural>
+
+<nav class="page-breadcrumb">
+  <h2 style="font-size: 30px;" class="page-title">PERSONAS NATURALES</h2>
+</nav>
+
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 style="font-weight: 500; font-size: 16px;" class="card-title">REGISTRAR NUEVA PERSONA NATURAL</h6>
+        <form>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+
+                <div>
+                  <button style="font-weight: 600; font-size: 13px;" type="button" class="btn btn-primary btn-icon-text" (click)="abrirModalNuevo()">
+                    <i class="feather icon-plus-square btn-icon-prepend"></i>
+                    CREAR
+                  </button>
+
+
+                </div>
+              </div>
+            </div><!-- Col -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 style="font-weight: 500; font-size: 16px;" class="card-title">LISTADO DE PERSONAS NATURALES</h6>
+        <form>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="table-responsive">
+                <table id="naturales" class="table table-bordered table-dark table-hover text-center">
+                  <thead class="bg-primary">
+                    <tr>
+                      <th class="text-dark">Nro. Documento</th>
+                      <th class="text-dark">Nombre</th>
+                      <th class="text-dark">Teléfono</th>
+                      <th class="text-dark">Dirección</th>
+                      <th class="text-dark">Correo</th>
+                      <th class="text-dark">Estado</th>
+                      <th class="text-dark">Distrito</th>
+                      <th class="text-dark">Activar</th>
+                      <th class="text-dark">Acciones</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let natural of naturales">
+                      <td>{{natural.nrodoc}}</td>
+                      <td>{{natural.nombres +' '+ natural.ape_PAT +' '+ natural.ape_MAT}}</td>
+                      <td>{{natural.telefono}}</td>
+                      <td>{{natural.direccion}}</td>
+                      <td>{{natural.correo}}</td>
+                      <td *ngIf="natural.estado =='A' else elseBlock"><span class="badge bg-success">ACTIVO</span></td>
+                      <ng-template #elseBlock>
+                        <td><span class="badge bg-danger">INACTIVO</span></td>
+                      </ng-template>
+                      <td>{{natural.id_DISTRITO.nom_distrito}}</td>
+                      <td *ngIf="natural.estado =='A' else elseButton">
+                        <button type="button" class="btn btn-secondary btn-icon btn-sm" name="inactivar"
+                          (click)="inactivarPersonaNatural(natural)"><i class="feather icon-check-square"></i>
+                        </button>
+                      </td>
+                      <ng-template #elseButton>
+                        <td><button type="button" class="btn btn-primary btn-icon btn-sm" name="activar"
+                            (click)="activarPersonaNatural(natural)"><i class="feather icon-check-square"></i>
+                          </button></td>
+                      </ng-template>
+                      <td>
+                        <button style="margin-right: 2px;" type="button" class="btn btn-primary btn-icon btn-sm" name="actualizar"
+                          (click)="abrirModal(natural)"><i class="feather icon-edit"></i>
+                        </button>
+                        <button style="margin-left: 2px;" type="button" class="btn btn-danger btn-icon btn-sm" name="eliminar"
+                          (click)='delete(natural)'><i class="feather icon-x-square"></i>
+                        </button>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div><!-- Col -->
+          </div><!-- Row -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

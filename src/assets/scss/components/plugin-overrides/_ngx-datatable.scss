@@ -1,0 +1,37 @@
+// Plugin: Ngx-datatable
+// github: https://github.com/swimlane/ngx-datatable
+
+.ngx-datatable {
+  &.bootstrap {
+    .datatable-header {
+      .datatable-header-cell {
+        border-bottom-color: $border-color;
+      }
+    }
+    .datatable-body {
+      .datatable-body-row {
+        border-top-color: $border-color;
+        &.datatable-row-even {
+          background-color: $table-accent-bg;
+        }
+      }
+    }
+    .datatable-footer {
+      background: $table-accent-bg;
+      .datatable-pager {
+        ul {
+          li {
+            &:not(.disabled) {
+              &.active,
+              &:hover {
+                a {
+                  background-color: rgba(theme-color(light), .2);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

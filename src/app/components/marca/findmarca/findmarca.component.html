@@ -1,0 +1,84 @@
+<div *ngIf="modalservice.modal2" class="modal"tabindex="-1" style="display: table;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="display: block;">
+                <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title text-center">BÚSQUEDA DE MARCAS</h3>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="">NOMBRE DE MARCA</label>
+                                                <div>
+                                                    <input id="nrodoc" type="text" class="form-control" #term>
+                                                </div>
+                                            </div>
+                                        </div><!-- Col -->
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <br>
+                                                <div>
+                                                    <button type="submit" class="btn btn-dark btn-block" role="button"
+                                                        style="margin-top: 10px;"
+                                                        (click)="filtrarMarcas(term.value)">BUSCAR</button>
+                                                </div>
+                                            </div>
+                                        </div><!-- Col -->
+                                    </div><!-- Row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <table id="findmarcas"
+                                                    class="table table-dark table-striped table-bordered text-center">
+                                                    <thead class="bg-dark">
+                                                        <tr>
+                                                            <th class="sorting_asc">Nombre de Marca</th>
+                                                            <th class="sorting">Seleccionar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let marca of marcas">
+                                                            <td>{{marca.nom_MARCA}}</td>
+                                                            <td><button type="button" class="btn btn-outline-info"
+                                                                    (click)="seleccionarMarca(marca)"
+                                                                    name="seleccionar"><i
+                                                                        class="feather icon-check-square"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div><!-- Row -->
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="modal-footer">
+                    <div class="col-md-2">
+                        <button (click)="cerrarModal()" type="button" class="btn btn-block btn-danger"
+                            data-dismiss="modal">CERRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
