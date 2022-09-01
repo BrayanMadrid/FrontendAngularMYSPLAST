@@ -512,7 +512,7 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
                     body: [
                       [{ text: 'RUC: ' + 20602674488, fontSize: 14, bold: true, alignment: 'center' }],
                       [{ text: 'ORDEN DE COMPRA', fontSize: 16, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
-                      [{ text: 'N° ' + ordencompra.nro_ORDENCOMPRA, fontSize: 14, bold: true, alignment: 'center' }],
+                      [{ text: 'N° ' + ordencompra.nroordencompra, fontSize: 14, bold: true, alignment: 'center' }],
 
                     ]
                   }

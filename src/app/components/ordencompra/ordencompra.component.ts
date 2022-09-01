@@ -84,7 +84,7 @@ export class OrdencompraComponent implements OnInit {
           ingreso.id_PERSONA = ordencompra.empleado,
           ingreso.id_SECTOR = ordencompra.sector,
           ingreso.guia_REF = docreferencia,
-          ingreso.nro_ORDEN = ordencompra.nro_ORDENCOMPRA,
+          ingreso.nro_ORDEN = ordencompra.nroordencompra,
           ingreso.categoriatransaccion = this.categoria
         for (let numero of ordencompra.items) {
 
@@ -134,7 +134,7 @@ export class OrdencompraComponent implements OnInit {
         console.log(ordencompra.estado)
         if(ordencompra.estado=="I"){
           console.log(ordencompra.estado)
-          this.ingresoservice.obtenerIngresoxOrden(ordencompra.nro_ORDENCOMPRA).subscribe((ingreso)=>{
+          this.ingresoservice.obtenerIngresoxOrden(ordencompra.nroordencompra).subscribe((ingreso)=>{
 
             Swal.fire(
               'Error!',

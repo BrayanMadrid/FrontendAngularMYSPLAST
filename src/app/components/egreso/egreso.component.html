@@ -88,6 +88,7 @@
                         <th class="text-dark">Sub. Almacén</th>
                         <th class="text-dark">Responsable</th>
                         <th class="text-dark">Tipo Transacción</th>
+                        <th class="text-dark">Centro de Costo</th>
                         <th class="text-dark">Estado</th>
                         <th class="text-dark" *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_JEFE'||'ROLE_ALMACEN')">Anular</th>
                         <th class="text-dark">Imprimir</th>
@@ -103,6 +104,10 @@
                             egreso.id_PERSONA.ape_MAT}}
                         </td>
                         <td>{{egreso.id_TIPOTRANSACCION.nom_TIPOTRANSACCION}}</td>
+                        <td *ngIf="egreso.id_CENTROCOSTO == null else esleBlockCentro">SIN CENTRO COSTO</td>
+                        <ng-template #esleBlockCentro>
+                          <td>{{egreso.id_CENTROCOSTO.nom_CENTROCOSTO}}</td>
+                        </ng-template>
                         <td *ngIf="egreso.estado =='N' else elseBlock" ><span class="badge bg-danger">ANULADO</span></td>
                         <ng-template #elseBlock>
                           <td><span class="badge bg-success">DESPACHADO</span></td>

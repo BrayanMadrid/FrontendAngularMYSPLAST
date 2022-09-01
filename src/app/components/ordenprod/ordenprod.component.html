@@ -147,7 +147,7 @@
   
                         <td *ngIf="authService.nothasRole('ROLE_ADMIN'||'ROLE_GERENTE') else elseButtonroleaprob" style="display: none;"></td>
                         <ng-template #elseButtonroleaprob>
-                        <td *ngIf="ordenprod.estado =='N' || ordenprod.estado =='T' || ordenprod.estado =='A' else elseButtonaprob">
+                        <td *ngIf="ordenprod.estado =='N' || ordenprod.estado =='I' || ordenprod.estado =='A' else elseButtonaprob">
                           <button type="button" class="btn btn-success btn-icon btn-sm" disabled="" 
                           ><i class="feather icon-x-square"></i>
                         </button>

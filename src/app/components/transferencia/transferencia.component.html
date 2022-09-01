@@ -114,7 +114,7 @@
   
                         <td *ngIf="authService.nothasRole('ROLE_ADMIN'||'ROLE_JEFE'||'ROLE_ALMACEN') else elseButton" style="display: none;"></td>
                         <ng-template #elseButton>
-                        <td *ngIf="transferencia.estado =='I' else elseifButton">
+                        <td *ngIf="transferencia.estado != 'N' else elseifButton">
                           <button type="button" class="btn btn-danger btn-icon btn-sm" name="anular"
                             (click)="anularWhtransferencia(transferencia)"><i class="feather icon-x-square"></i>
                           </button>

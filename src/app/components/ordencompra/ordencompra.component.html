@@ -101,7 +101,7 @@
                     <tbody>
                       <tr *ngFor="let ordencompra of ordencompras">
                         <td>{{ordencompra.fecha}}</td>
-                        <td>{{ordencompra.nro_ORDENCOMPRA}}</td>
+                        <td>{{ordencompra.nroordencompra}}</td>
                         <td>{{ordencompra.sector.id_ALMACEN.nom_ALMACEN}}</td>
                         <td>{{ordencompra.sector.nom_SECTOR}}</td>
                         <td>{{ordencompra.empleado.nombres +" "+ ordencompra.empleado.ape_PAT +" "+
@@ -137,7 +137,7 @@
   
                         <td *ngIf="authService.nothasRole('ROLE_ADMIN'||'ROLE_GERENTE') else elseButtonroleaprob" style="display: none;"></td>
                         <ng-template #elseButtonroleaprob>
-                        <td *ngIf="ordencompra.estado =='N' || ordencompra.estado =='T' || ordencompra.estado =='A' else elseButtonaprob">
+                        <td *ngIf="ordencompra.estado =='N' || ordencompra.estado =='I' || ordencompra.estado =='A' else elseButtonaprob">
                           <button type="button" class="btn btn-success btn-icon btn-sm" disabled="" 
                           ><i class="feather icon-x-square"></i>
                         </button>

@@ -7,7 +7,7 @@ import { Tipotransaccion } from "../tipotransaccion/tipotransaccion";
 export class OrdenCompra{
     id_ORDENCOMPRA:string;
     fecha:Date;
-    nro_ORDENCOMPRA:string;
+    nroordencompra:string;
     id_TIPOTRANSACCION:Tipotransaccion;
     empleado:Natural;
     sector:Sector;

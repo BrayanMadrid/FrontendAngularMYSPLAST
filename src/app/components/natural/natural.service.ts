@@ -101,7 +101,7 @@ export class NaturalService {
   }
 
   obtenerNaturalFiltro(nombre, nrodoc): Observable<Natural[]>{
-    return this.http.get<Natural[]>(`${this.urlEndpoint}/filtro?nombre=${nombre}&nrodoc=${nrodoc}`, {headers: this.agregarAutorizationHeader()}).pipe(
+    return this.http.get<Natural[]>(`${this.urlEndpoint}/filtroC?nombre=${nombre}&nrodoc=${nrodoc}`, {headers: this.agregarAutorizationHeader()}).pipe(
       catchError(e=>{
         this.isNoAutorizado(e);
         return throwError(e);

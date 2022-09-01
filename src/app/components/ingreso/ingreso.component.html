@@ -104,7 +104,10 @@
                             ingreso.id_PERSONA.ape_MAT}}
                         </td>
                         <td>{{ingreso.id_TIPOTRANSACCION.nom_TIPOTRANSACCION}}</td>
-                        <td>{{ingreso.guia_REF}}</td>
+                        <td *ngIf="ingreso.guia_REF == null else esleBlockGuia">SIN DOCUMENTO</td>
+                        <ng-template #esleBlockGuia>
+                          <td>{{ingreso.guia_REF}}</td>
+                        </ng-template>
                         <td *ngIf="ingreso.estado =='N' else elseBlock"><span class="badge bg-danger">ANULADO</span></td>
                         <ng-template #elseBlock>
                           <td><span class="badge bg-success">INGRESADO</span></td>
