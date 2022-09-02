@@ -67,6 +67,10 @@ const routes: Routes = [
         path: 'generalrc',
         loadChildren: () => import('./components/recetaprod/generalrc.module').then(m => m.GeneralrcModule)
       },
+      {
+        path: 'generalif',
+        loadChildren: () => import('./components/inventariofisico/generalif.module').then(m => m.GeneralifModule)
+      },
       /*{ path: 'juridica', component: JuridicaComponent},
       { path: 'natural', component: NaturalComponent},
       { path: 'producto', component: ProductoComponent},

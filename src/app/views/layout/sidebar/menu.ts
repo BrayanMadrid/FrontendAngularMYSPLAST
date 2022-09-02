@@ -95,6 +95,11 @@ export const MENU: MenuItem[] = [
       },
     ]
   },
+  {
+    label: 'Inventario Físico',
+    icon: 'file-plus',
+    link: '/generalif/inventariofisico'
+  },
 
   {
     label: 'Producción',
