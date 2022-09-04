@@ -137,6 +137,15 @@ export class ProductoService {
     );
   }
 
+  obtenerProductosInventarioFisico(sector: String): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.urlEndpoint}/buscar/sector/${sector}`, { headers: this.agregarAutorizationHeader() }).pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
+
   obtenerProductosInsumosFiltrados(term: String): Observable<Producto[]> {
     return this.http.get<Producto[]>(`${this.urlEndpoint}/filtrar-productoinsm/${term}`, { headers: this.agregarAutorizationHeader() }).pipe(
       catchError(e => {

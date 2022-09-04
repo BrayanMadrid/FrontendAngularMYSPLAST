@@ -43,6 +43,7 @@ export class InventariofisicoComponent implements OnInit {
      public authService: AuthService, public almacenService: AlmacenService,public sectorService: SectorService) { }
 
   ngOnInit(): void {
+    this.cargarIngresos();
   }
 
   cargarIngresos() {

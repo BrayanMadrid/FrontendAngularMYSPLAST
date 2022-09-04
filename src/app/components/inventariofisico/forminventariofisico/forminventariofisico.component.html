@@ -1,1 +1,158 @@
-<p>forminventariofisico works!</p>
+<!-- LLAMA AL FORMPERSONA HTML EL CUAL ESTÁ DENTRO DE UN MODAL Y SE HACE LA VALIDACION PARA QUE SE MUESTRE EL MODAL SOLO SI EL MODAL ESTÁ INACTIVO -->
+<app-findnaturalif *ngIf="modalService.modal2" [natural]="naturalSeleccionada"></app-findnaturalif>
+
+<div class="row">
+    <div class="col-xl-12 main-content pl-xl-4 pr-xl-5">
+        <h2 style="font-size: 30px;" class="page-title">GENERAR INVENTARIO FÍSICO</h2>
+
+        <div class="alert alert-danger alert-dismissible" *ngIf="fechas.invalid && (fechas.dirty || fechas.touched)">
+            <div *ngIf="fechas.errors.required">
+                La fecha es requerida
+            </div>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible"
+            *ngIf="almacenes.invalid && (almacenes.dirty || almacenes.touched)">
+            <div *ngIf="almacenes.errors.required">
+                El almacen es requerido
+            </div>
+        </div>
+
+        <div class="alert alert-danger alert-dismissible"
+            *ngIf="sectores.invalid && (sectores.dirty || sectores.touched)">
+            <div *ngIf="sectores.errors.required">
+                El sub almacen es requerido , previo escoga el almacen
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form #role="ngForm" class="forms-sample">
+
+                            <div class="form-group">
+                                <div class="form-group">
+                                    <label for="nombre1">FECHA</label>
+                                    <div>
+                                        <input type="date" class="form-control" [(ngModel)]="inventariofisico.fecha"
+                                            name="fecha" #fechas="ngModel" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="persona">RESPONSABLE</label>
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <button style="font-weight: 500; font-size: 13px;" type="button"
+                                            class="btn btn-outline-primary"
+                                            (click)="abrirModalNatural()">SELECCIONAR</button>
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="responsable" required
+                                            name="responsable" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="almacen">ALMACÉN</label>
+                                <div>
+                                    <select class="form-control" [(ngModel)]="selectedAlmacen.id_ALMACEN"
+                                        #almacenes="ngModel" required name="almacen"
+                                        (ngModelChange)="handleAlmacenChange($event)">
+                                        
+                                        <option *ngFor="let almacen of almacen" value={{almacen.id_ALMACEN}}>
+                                            {{almacen.nom_ALMACEN}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sector">SECTOR</label>
+                                <div>
+                                    <select class="form-control" [(ngModel)]="inventariofisico.id_SECTOR"
+                                    (ngModelChange)="obtenerProductosFiltrados($event)" #sectores="ngModel" required name="sector">
+                                        <option *ngFor="let sector of sector" [ngValue]="sector" >
+                                            {{sector.nom_SECTOR}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-dark"
+                    role="button"
+                    (click)="cargarDataTabla()">BUSCAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="forms-sample">
+
+                            <div class="col-md-12 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <table id="inventariofisico" class="table table-bordered table-dark table-hover text-center">
+                                                <thead class="bg-primary">
+                                                    <tr>
+                                                        <th class="text-dark col-sm-3">Producto</th>
+                                                        <th class="text-dark col-sm-1">Und. Medida</th>
+                                                        <th class="text-dark col-sm-2">Cantidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of inventariofisico.items">
+                                                        <td>{{item.id_PRODUCTO.nombre}}</td>
+                                                        <td>{{item.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA}}</td>
+                                                        <td><input type="text" class="form-control" [(ngModel)]="item.cantidad"
+                                                            name="cantidad" #cantidad="ngModel" required></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input style="font-weight: 500; font-size: 14px;"
+                                                                    type="submit" value="REGISTRAR ORDEN DE COMPRA"
+                                                                    class="btn btn-block  btn-outline-primary"
+                                                                    [disabled]="role.form.invalid || inventariofisico.items.length == 0"
+                                                                    (click)="create()">
+                                                            </div>
+                                                        </div><!-- Col -->
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group">
+                                                                <input style="font-weight: 500; font-size: 14px;"
+                                                                    type="submit" value="VOLVER" [routerLink]="['/generalif/inventariofisico']"
+                                                                    class="btn btn-block btn-outline-danger">
+                                                            </div>
+                                                        </div><!-- Col -->
+                                                    </div><!-- Row -->
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
