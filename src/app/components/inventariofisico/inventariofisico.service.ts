@@ -42,7 +42,7 @@ export class InventariofisicoService {
   }
 
   crearInventarioFisico(inventariofisico: Inventariofisico): Observable<any> {
-    return this.http.post<any>(`${this.urlEndpoint}/inventariofisico`, inventariofisico, { headers: this.agregarAutorizationHeader() }).pipe(
+    return this.http.post<any>(`${this.urlEndpoint}/crear`, inventariofisico, { headers: this.agregarAutorizationHeader() }).pipe(
       catchError(e => {
         console.error(e.error.mensaje);
         if (this.isNoAutorizado(e)) {

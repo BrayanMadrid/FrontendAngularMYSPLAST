@@ -29,7 +29,7 @@
 
 
         <div class="row">
-            <div class="col-md-4 grid-margin stretch-card">
+            <div class="col-md-3 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
 
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 grid-margin stretch-card">
+            <div class="col-md-9 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
                         <form class="forms-sample">
@@ -103,15 +103,22 @@
                                                     <tr>
                                                         <th class="text-dark col-sm-3">Producto</th>
                                                         <th class="text-dark col-sm-1">Und. Medida</th>
-                                                        <th class="text-dark col-sm-2">Cantidad</th>
+                                                        <th class="text-dark col-sm-1">Sistema</th>
+                                                        <th class="text-dark col-sm-2">Fisico</th>
+                                                        <th class="text-dark col-sm-1">Diferencia</th>
+                                                        <th class="text-dark col-sm-3">Observaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let item of inventariofisico.items">
                                                         <td>{{item.id_PRODUCTO.nombre}}</td>
                                                         <td>{{item.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA}}</td>
-                                                        <td><input type="text" class="form-control" [(ngModel)]="item.cantidad"
-                                                            name="cantidad" #cantidad="ngModel" required></td>
+                                                        <td>{{item.cantidadsistema}}</td>
+                                                        <td><input type="number" class="form-control" value="{{item.cantidad}}"
+                                                            name="cantidad"  (change)="actualizarCantidad(item.id_PRODUCTO.id_PRODUCTO, $event)" required></td>
+                                                            <td>{{item.diferencia}}</td>
+                                                        <td><input type="text" class="form-control"
+                                                            name="observacion" (change)="actualizarObservacion(item.id_PRODUCTO.id_PRODUCTO, $event)" ></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -129,7 +136,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <input style="font-weight: 500; font-size: 14px;"
-                                                                    type="submit" value="REGISTRAR ORDEN DE COMPRA"
+                                                                    type="submit" value="REGISTRAR INVENTARIO FÍSICO"
                                                                     class="btn btn-block  btn-outline-primary"
                                                                     [disabled]="role.form.invalid || inventariofisico.items.length == 0"
                                                                     (click)="create()">

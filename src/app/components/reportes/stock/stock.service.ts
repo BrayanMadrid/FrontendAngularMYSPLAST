@@ -62,4 +62,23 @@ export class StockService {
   }
 
   
+  obtenerStockXSector(sector): Observable<Stock[]>{
+    return this.http.get<Stock[]>(`${this.urlEndpoint}/stock/sector?sector=${sector}`, {headers: this.agregarAutorizationHeader()}).pipe(
+      catchError(e=>{
+        console.error(e.error.mensaje);
+        if(this.isNoAutorizado(e)){
+          return throwError(e);
+        }
+        Swal.fire({
+          icon: 'error',
+          title: "<b><h1 style='color:red'>" + 'Error!' + "</h1></b>",
+          text: e.error.mensaje,
+          
+        })
+        return throwError(e); 
+      })
+    );
+  }
+
+  
 }

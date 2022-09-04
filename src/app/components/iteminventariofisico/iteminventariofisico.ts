@@ -7,5 +7,8 @@ export class Iteminventariofisico{
     cantidad: number;
     id_PRODUCTO: Producto;
     id_INVENT: Inventariofisico;
+    observacion: string;
+    cantidadsistema: number;
+    diferencia: number;
 
 }

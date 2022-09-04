@@ -7,7 +7,10 @@ export class Inventariofisico{
     id_INVENT: string;
     reg_USER: string;
     fech_REG_USER: string;
-    fecha:Date;
+    mod_USER: string;
+    fech_MOD_USER: string;
+    fecha:string;
+    estado:string;
     responsable:Natural;
     id_SECTOR:Sector;
     items: Array<Iteminventariofisico> = [];
