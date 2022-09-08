@@ -105,7 +105,7 @@ export class ForminventariofisicoComponent implements OnInit {
       this.inventariofisico.items = this.inventariofisico.items.map((item: Iteminventariofisico) => {
         if (id == item.id_PRODUCTO.id_PRODUCTO) {
           item.cantidad = cantidad;
-          item.diferencia = item.cantidadsistema - item.cantidad
+          item.diferencia = item.cantidad - item.cantidadsistema
         }
         return item;
       });

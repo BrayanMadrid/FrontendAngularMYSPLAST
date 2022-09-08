@@ -84,23 +84,80 @@
                     <thead class="bg-primary">
                       <tr>
                         <th class="text-dark">Fecha</th>
+                        <th class="text-dark">Nro. Inventario</th>
                         <th class="text-dark">Almacén</th>
                         <th class="text-dark">Sector</th>
                         <th class="text-dark">Responsable</th>
+                        <th class="text-dark">Estado</th>
+                        <th class="text-dark" *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_LOGISTICA')">Anular</th>
+                        <th class="text-dark">Aprobar</th>
+                        <th class="text-dark">Regularizar</th>
                         <th class="text-dark">Imprimir</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let inventariofisico of inventariofisicos">
                         <td>{{inventariofisico.fecha}}</td>
+                        <td>{{inventariofisico.nroinventario}}</td>
                         <td>{{inventariofisico.id_SECTOR.id_ALMACEN.nom_ALMACEN}}</td>
                         <td>{{inventariofisico.id_SECTOR.nom_SECTOR}}</td>
                         <td>{{inventariofisico.responsable.nombres +" "+ inventariofisico.responsable.ape_PAT +" "+
                           inventariofisico.responsable.ape_MAT}}
                         </td>
+                        <td *ngIf="inventariofisico.estado =='N' else elseBlock"><span class="badge bg-danger">ANULADO</span></td>
+                        <ng-template #elseBlock>
+                          <td *ngIf="inventariofisico.estado =='R' else elseifblock"><span class="badge bg-primary">REGULARIZADO</span></td>
+                        </ng-template>
+                        <ng-template #elseifblock>
+                          <td *ngIf="inventariofisico.estado =='A' else elseif2block"><span class="badge bg-success">APROBADO</span></td>
+                        </ng-template>
+                        <ng-template #elseif2block>
+                          <td><span class="badge bg-warning">PENDIENTE</span></td>
+                        </ng-template>
+
+                        <td *ngIf="authService.nothasRole('ROLE_ADMIN'||'ROLE_LOGISTICA') else elseButtonroleanular" style="display: none;"></td>
+                        <ng-template #elseButtonroleanular>
+                        <td *ngIf="inventariofisico.estado =='N' || inventariofisico.estado =='R' else elseButton">
+                          <button type="button" class="btn btn-secondary btn-icon btn-sm" disabled="" 
+                          ><i class="feather icon-x-square"></i>
+                        </button>
+                        </td>
+                        </ng-template>
+                        <ng-template #elseButton>
+                          <td> <button type="button" class="btn btn-danger btn-icon btn-sm" name="anular"
+                              (click)="anularInventarioFisico(inventariofisico)"><i class="feather icon-x-square"></i>
+                            </button></td>
+                        </ng-template>
+
+                        <td *ngIf="authService.nothasRole('ROLE_ADMIN'||'ROLE_GERENTE') else elseButtonroleaprob" style="display: none;"></td>
+                        <ng-template #elseButtonroleaprob>
+                        <td *ngIf="inventariofisico.estado =='N' || inventariofisico.estado =='R' || inventariofisico.estado =='A' else elseButtonaprob">
+                          <button type="button" class="btn btn-success btn-icon btn-sm" disabled="" 
+                          ><i class="feather icon-x-square"></i>
+                        </button>
+                        </td>
+                        </ng-template>
+                        <ng-template #elseButtonaprob>
+                          <td> <button type="button" class="btn btn-success btn-icon btn-sm" name="anular"
+                              (click)="aprobarInventarioFisico(inventariofisico)"><i class="feather icon-x-square"></i>
+                            </button></td>
+                        </ng-template>
+                        <td *ngIf="authService.nothasRole('ROLE_ADMIN'||'ROLE_GERENTE') else elseButtonrolereg" style="display: none;"></td>
+                        <ng-template #elseButtonrolereg>
+                        <td *ngIf="inventariofisico.estado =='N' || inventariofisico.estado =='R' || inventariofisico.estado =='P' else elseButtonreg">
+                          <button type="button" class="btn btn-success btn-icon btn-sm" disabled="" 
+                          ><i class="feather icon-x-square"></i>
+                        </button>
+                        </td>
+                        </ng-template>
+                        <ng-template #elseButtonreg>
+                          <td> <button type="button" class="btn btn-success btn-icon btn-sm" name="anular"
+                              (click)="regularizarInventarioFisico(inventariofisico)"><i class="feather icon-x-square"></i>
+                            </button></td>
+                        </ng-template>
                         <td><button type="button" class="btn btn-primary btn-icon btn-sm"
                            name="visualizar"><i
-                            class="feather icon-printer"></i></button></td>
+                             (click)="createPDFInventariofisico(inventariofisico)" class="feather icon-printer"></i></button></td>
                       </tr>
                     </tbody>
                   </table>

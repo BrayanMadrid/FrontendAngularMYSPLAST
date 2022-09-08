@@ -156,6 +156,9 @@ limpiarCampos():void{
   });
 }
 
-
+createPDFReceta(recetaprod: Recetaprod) {
+  let doc = this._reportS.getRecetaPDF(recetaprod);
+  this._reportS.openPDF(doc);
+}
 
 }

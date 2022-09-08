@@ -9,6 +9,8 @@ import { Egreso } from './egreso/egreso';
 import { Ingreso } from './ingreso/ingreso';
 import { OrdenCompra } from './ordencompra/ordencompra';
 import { Ordenprod } from './ordenprod/ordenprod';
+import { Recetaprod } from './recetaprod/recetaprod';
+import { Inventariofisico } from './inventariofisico/inventariofisico';
 /*import { WhIngreso } from './whingreso/whingreso';
 import { Whegreso } from './whegreso/whegreso';
 import { transferencia } from './transferencia/transferencia';
@@ -88,7 +90,107 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
   }
 
   getIngresoPDF(ingreso: Ingreso): any {
-    if (ingreso) {
+
+
+    if (ingreso.proveedor=null) {
+      return {
+        pageSize: 'A4',
+        pageOrientation: 'landscape',
+        content: [
+          {
+            columns: [
+              [
+              {
+                image: this.imageToShow,
+                width: 100,
+                alignment: 'left',
+                margin: [0, 0, 0, 0],
+              },
+              {
+                image: this.imageToShow2,
+                width: 300,
+                alignment: 'rigth',
+                margin: [0, 0, 0, 0]
+              }
+              ],
+              [
+                {
+                    margin: [180, 0, 0, 10], //350 - 160
+                    text: [{ text: 'FECHA TRANSACCIÓN: ', bold: true }, this.transFormDate(ingreso.fechatran)]
+                  },
+                {
+                  margin: [170, 0, 0, 0], //350 - 160
+                  table: {
+                    widths: [200],
+                    body: [
+                      [{ text: 'RUC: ' + 20602674488, fontSize: 14, bold: true, alignment: 'center' }],
+                      [{ text: 'NOTA DE INGRESO', fontSize: 16, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
+                      [{ text: 'N° ' + ingreso.nro_TRAN, fontSize: 14, bold: true, alignment: 'center' }],
+
+                    ]
+                  }
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Datos del Ingreso de Mercadería',
+            style: 'sectionHeader',
+            bold: true,
+            decoration: 'underline',
+            margin: [0, 30, 0, 15]
+          },
+          {
+            columns: [
+              [
+                { text: [{ text: 'Responsable: ', bold: true },ingreso.id_PERSONA.nombres + ' ' + ingreso.id_PERSONA.ape_PAT + ' ' + ingreso.id_PERSONA.ape_MAT]},
+                { text: [{ text: 'Nro. Documento: ', bold: true },ingreso.id_PERSONA.nrodoc]},
+                { text: [{ text: 'Teléfono: ', bold: true },ingreso.id_PERSONA.telefono]},
+              ],
+              [ 
+                { text: [{ text: 'Proveedor: ', bold: true },ingreso.proveedor.razonsocial]},
+                { text: [{ text: 'Nro. Documento: ', bold: true },ingreso.proveedor.nrodoc]},
+                { text: [{ text: 'Dirección: ', bold: true },ingreso.proveedor.direccion]},
+                { text: [{ text: 'Teléfono: ', bold: true },ingreso.proveedor.telefono]},
+              ],
+              [
+                { text: [{ text: 'Almacén: ', bold: true },ingreso.id_SECTOR.id_ALMACEN.nom_ALMACEN]},
+                { text: [{ text: 'Sub. Almacén: ', bold: true },ingreso.id_SECTOR.nom_SECTOR]},
+                { text: [{ text: 'Tipo de Transacción: ', bold: true }, ingreso.categoriatransaccion.nombre] },
+                { text: [{ text: 'Documento Referencia: ', bold: true }, ingreso.guia_REF] }
+              ]
+            ]
+          },
+          ,
+          {
+            text: 'Detalle del Ingreso de Mercadería',
+            style: 'sectionHeader',
+            bold: true,
+            decoration: 'underline',
+            alignment: 'center',
+            margin: [0, 15, 0, 15]
+          },
+          {
+            table: {
+              headerRows: 1,
+              widths: ['auto', '*', 'auto', 'auto', 'auto'],
+              body: [
+                [
+                  //Columnas
+                  { text: 'Línea', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Producto', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Marca', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Unid. Medida', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Cantidad', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }
+                ],
+                ...ingreso.items.map(p => ([{ text: p.linea, alignment: 'center' }, p.id_PRODUCTO.nombre, { text: p.id_PRODUCTO.id_MARCA.nom_MARCA, alignment: 'center' }, { text: p.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA, alignment: 'center' }, { text: p.cantidad, alignment: 'center' }])),
+               
+              ]
+            }
+          }
+        ]
+      }
+    } else{
       return {
         pageSize: 'A4',
         pageOrientation: 'landscape',
@@ -144,14 +246,9 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
                 { text: [{ text: 'Teléfono: ', bold: true },ingreso.id_PERSONA.telefono]},
               ],
               [
-                { text: [{ text: 'Proveedor: ', bold: true },ingreso.proveedor.razonsocial]},
-                { text: [{ text: 'Nro. Documento: ', bold: true },ingreso.proveedor.nrodoc]},
-                { text: [{ text: 'Dirección: ', bold: true },ingreso.proveedor.direccion]},
-                { text: [{ text: 'Teléfono: ', bold: true },ingreso.proveedor.telefono]},
-              ],
-              [
                 { text: [{ text: 'Almacén: ', bold: true },ingreso.id_SECTOR.id_ALMACEN.nom_ALMACEN]},
                 { text: [{ text: 'Sub. Almacén: ', bold: true },ingreso.id_SECTOR.nom_SECTOR]},
+                { text: [{ text: 'Tipo de Transacción: ', bold: true }, ingreso.categoriatransaccion.nombre] },
                 { text: [{ text: 'Documento Referencia: ', bold: true }, ingreso.guia_REF] }
               ]
             ]
@@ -573,6 +670,186 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
                 ...ordencompra.items.map(p => ([{ text: p.line, alignment: 'center' }, p.id_PRODUCTO.nombre, { text: p.id_PRODUCTO.id_MARCA.nom_MARCA, alignment: 'center' }
                 , { text: p.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA, alignment: 'center' }, { text: p.cantidad, alignment: 'center' }
                 , { text: p.precio, alignment: 'center' }, { text: p.total, alignment: 'center' }])),
+               
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+
+  getRecetaPDF(recetaprod: Recetaprod): any {
+    if (recetaprod) {
+      return {
+        pageSize: 'A4',
+        pageOrientation: 'landscape',
+        content: [
+          {
+            columns: [
+              [ {
+                image: this.imageToShow,
+                width: 100,
+                alignment: 'left',
+                margin: [0, 0, 0, 0],
+              },
+              {
+                image: this.imageToShow2,
+                width: 300,
+                alignment: 'rigth',
+                margin: [0, 0, 0, 0]
+              }
+              ],
+              [
+                {
+                    margin: [180, 0, 0, 10], //350 - 160
+                    text: [{ text: 'FECHA DE CREACIÓN: ', bold: true }, this.transFormDate(recetaprod.fecha)]
+                  },
+                {
+                  margin: [170, 0, 0, 0], //350 - 160
+                  table: {
+                    widths: [200],
+                    body: [
+                      [{ text: 'RUC: ' + 20602674488, fontSize: 14, bold: true, alignment: 'center' }],
+                      [{ text: 'RECETA DE PRODUCCIÓN', fontSize: 16, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
+                      [{ text: 'N° ' + recetaprod.nro_RECETA, fontSize: 14, bold: true, alignment: 'center' }],
+
+                    ]
+                  }
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Datos de la Orden de Producción',
+            style: 'sectionHeader',
+            bold: true,
+            decoration: 'underline',
+            margin: [0, 30, 0, 15]
+          },
+          {
+            columns: [
+              [ 
+                { text: [{ text: 'Producto: ', bold: true },recetaprod.nom_RECETA]},
+                { text: [{ text: 'Producto: ', bold: true },recetaprod.id_PRODUCTO.nombre]},
+                { text: [{ text: 'Unidad de Medida: ', bold: true },recetaprod.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA]},
+                { text: [{ text: 'Categoría: ', bold: true },recetaprod.id_PRODUCTO.id_CATEGORIA.nom_CATEGORIA]},
+              ]
+            ]
+          },
+          ,
+          {
+            text: 'Detalle de la Receta de Producción',
+            style: 'sectionHeader',
+            bold: true,
+            decoration: 'underline',
+            alignment: 'center',
+            margin: [0, 15, 0, 15]
+          },
+          {
+            table: {
+              headerRows: 1,
+              widths: ['*', 'auto', 'auto', 'auto'],
+              body: [
+                [
+                  { text: 'Producto', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Marca', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Unid. Medida', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Cantidad', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }
+                ],
+                ...recetaprod.items.map(p => ([ p.id_PRODUCTO.nombre, { text: p.id_PRODUCTO.id_MARCA.nom_MARCA, alignment: 'center' }, { text: p.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA, alignment: 'center' }, { text: p.cantidad, alignment: 'center' }])),
+               
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+
+  getInventarioFisicoPDF(inventariofisico: Inventariofisico): any {
+    if (inventariofisico) {
+      return {
+        pageSize: 'A4',
+        pageOrientation: 'landscape',
+        content: [
+          {
+            columns: [
+              [ {
+                image: this.imageToShow,
+                width: 100,
+                alignment: 'left',
+                margin: [0, 0, 0, 0],
+              },
+              {
+                image: this.imageToShow2,
+                width: 300,
+                alignment: 'rigth',
+                margin: [0, 0, 0, 0]
+              }
+              ],
+              [
+                {
+                    margin: [180, 0, 0, 10], //350 - 160
+                    text: [{ text: 'FECHA DE CREACIÓN: ', bold: true }, this.transFormDate(inventariofisico.fecha)]
+                  },
+                {
+                  margin: [170, 0, 0, 0], //350 - 160
+                  table: {
+                    widths: [200],
+                    body: [
+                      [{ text: 'RUC: ' + 20602674488, fontSize: 14, bold: true, alignment: 'center' }],
+                      [{ text: 'INVENTARIO FÍSICO', fontSize: 16, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
+                      [{ text: 'N° ' + inventariofisico.nroinventario, fontSize: 14, bold: true, alignment: 'center' }],
+
+                    ]
+                  }
+                }
+              ]
+            ]
+          },
+          {
+            text: 'Datos del Inventario Físico',
+            style: 'sectionHeader',
+            bold: true,
+            decoration: 'underline',
+            margin: [0, 30, 0, 15]
+          },
+          {
+            columns: [
+              [ 
+                { text: [{ text: 'Responsable: ', bold: true },inventariofisico.responsable.nombres + ' ' + inventariofisico.responsable.ape_PAT + ' ' + inventariofisico.responsable.ape_MAT]},
+                { text: [{ text: 'Almacen: ', bold: true },inventariofisico.id_SECTOR.id_ALMACEN.nom_ALMACEN]},
+                { text: [{ text: 'Sector: ', bold: true },inventariofisico.id_SECTOR.nom_SECTOR]},
+              ]
+            ]
+          },
+          ,
+          {
+            text: 'Detalle del Inventario Físico',
+            style: 'sectionHeader',
+            bold: true,
+            decoration: 'underline',
+            alignment: 'center',
+            margin: [0, 15, 0, 15]
+          },
+          {
+            table: {
+              headerRows: 1,
+              widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+              body: [
+                [
+                  { text: 'Producto', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Marca', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Unid. Medida', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Sistema', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Fisico', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Diferencia', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                  { text: 'Observaciones', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }
+                ],
+                ...inventariofisico.items.map(p => ([ p.id_PRODUCTO.nombre, { text: p.id_PRODUCTO.id_MARCA.nom_MARCA, alignment: 'center' },
+                 { text: p.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA, alignment: 'center' }, { text: p.cantidadsistema, alignment: 'center' },
+                 { text: p.cantidad, alignment: 'center' }, { text: p.diferencia, alignment: 'center' }, { text: p.observacion, alignment: 'center' }])),
                
               ]
             }
