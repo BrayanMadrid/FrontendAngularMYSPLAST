@@ -211,7 +211,10 @@ export class InventariofisicoComponent implements OnInit {
     this.almacenService.obtenerAlmacenes().subscribe(almacen => this.almacenes = almacen);
     this.categoriaService.obtenerCategoriaTransaccion(8).subscribe(categoria => this.categoriaIngreso = categoria);
     this.categoriaService.obtenerCategoriaTransaccion(9).subscribe(categoria => this.categoriaSalida = categoria);
-    this.inventariofisicoservice.obtenerInventariosfisicos().subscribe(data => this.inventariofisicos = data)
+    this.inventariofisicoservice.obtenerInventariosfisicos().subscribe((data) => {
+      this.inventariofisicos = data
+      this.createDataTable();});
+
   }
   handleAlmacenChange(id: string): void {
     this.sectorService.obtenerSectoresxAlmacen(id).subscribe((sector) => this.sectores = sector);

@@ -809,26 +809,31 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
             ]
           },
           {
-            text: 'Datos del Inventario Físico',
-            style: 'sectionHeader',
-            bold: true,
-            decoration: 'underline',
-            margin: [0, 30, 0, 15]
-          },
-          {
             columns: [
-              [ 
-                { text: [{ text: 'Responsable: ', bold: true },inventariofisico.responsable.nombres + ' ' + inventariofisico.responsable.ape_PAT + ' ' + inventariofisico.responsable.ape_MAT]},
-                { text: [{ text: 'Almacen: ', bold: true },inventariofisico.id_SECTOR.id_ALMACEN.nom_ALMACEN]},
-                { text: [{ text: 'Sector: ', bold: true },inventariofisico.id_SECTOR.nom_SECTOR]},
+              [ {
+                margin: [0, 0, 0, 0], //350 - 160
+                  table: {
+                    widths: ['*'],
+                    body: [
+                      [{ text: 'DATOS DEL INVENTARIO FÍSICO', fontSize: 14, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
+                      [
+                      { text: [,inventariofisico.responsable.nombres + ' ' + inventariofisico.responsable.ape_PAT + ' ' + inventariofisico.responsable.ape_MAT +'\n',
+                      { text: 'Almacen: ', bold: true, fontSize: 14 },inventariofisico.id_SECTOR.id_ALMACEN.nom_ALMACEN +'\n',
+                      { text: 'Sector: ', bold: true, fontSize: 14 },inventariofisico.id_SECTOR.nom_SECTOR],
+                       },
+                    ]
+                    ]
+                  }
+                }
               ]
             ]
           },
           ,
           {
-            text: 'Detalle del Inventario Físico',
+            text: [ 'DETALLE DEL INVENTARIO FÍSICO'],
             style: 'sectionHeader',
             bold: true,
+            fontSize:16,
             decoration: 'underline',
             alignment: 'center',
             margin: [0, 15, 0, 15]
