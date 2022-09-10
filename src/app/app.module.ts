@@ -71,6 +71,7 @@ import { IngresosalmacenComponent } from './components/reportes/ingresosalmacen/
 import { ItemordencompraComponent } from './components/itemordencompra/itemordencompra.component';
 import { ItemordenprodComponent } from './components/itemordenprod/itemordenprod.component';
 import { ItemrecetaprodComponent } from './components/itemrecetaprod/itemrecetaprod.component';
+import { GastosComponent } from './components/reportes/gastos/gastos.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { ItemrecetaprodComponent } from './components/itemrecetaprod/itemrecetap
     IngresosalmacenComponent,
     ItemordencompraComponent,
     ItemordenprodComponent,
-    ItemrecetaprodComponent
+    ItemrecetaprodComponent,
+    GastosComponent
   ],
   imports: [
     BrowserModule,

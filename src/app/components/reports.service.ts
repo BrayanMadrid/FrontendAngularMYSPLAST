@@ -771,36 +771,43 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
     if (inventariofisico) {
       return {
         pageSize: 'A4',
-        pageOrientation: 'landscape',
+        pageOrientation: 'portrait',
         content: [
           {
             columns: [
               [ {
                 image: this.imageToShow,
-                width: 100,
+                width: 50,
                 alignment: 'left',
                 margin: [0, 0, 0, 0],
               },
               {
                 image: this.imageToShow2,
-                width: 300,
+                width: 150,
                 alignment: 'rigth',
                 margin: [0, 0, 0, 0]
+              },
+              {
+                text:[{text:'DISTRIBUCIÓN Y VENTAS DE BOLSAS PLÁSTICAS, DESCARTABLES, SERVILLETAS, CUCHARAS, PLATOS,' + 
+                'VASOS, SORBETES, ROLLOS Y TODO TIPO DE MEDIDAS Y MARCAS', bold: true, fontSize: 8}]
+              },
+              {
+                text:[{text:'MZA. 165 LOTE. 36 A.H. HUAYCAN (2DO PISO LOTE 36 UCV 165 ZONA L HUAYCAN) LIMA - LIMA - ATE', fontSize: 8}]
               }
               ],
               [
                 {
-                    margin: [180, 0, 0, 10], //350 - 160
-                    text: [{ text: 'FECHA DE CREACIÓN: ', bold: true }, this.transFormDate(inventariofisico.fecha)]
+                    margin: [110, 20, 0, 10], //350 - 160
+                    text: [{ text: 'FECHA DE EMISIÓN: ', bold: true, fontSize: 8}, {text: this.transFormDate(inventariofisico.fecha), fontSize:8}]
                   },
                 {
-                  margin: [170, 0, 0, 0], //350 - 160
+                  margin: [90, 0, 0, 0], //350 - 160
                   table: {
-                    widths: [200],
+                    widths: [150],
                     body: [
-                      [{ text: 'RUC: ' + 20602674488, fontSize: 14, bold: true, alignment: 'center' }],
-                      [{ text: 'INVENTARIO FÍSICO', fontSize: 16, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
-                      [{ text: 'N° ' + inventariofisico.nroinventario, fontSize: 14, bold: true, alignment: 'center' }],
+                      [{ text: 'RUC: ' + 20548502471, fontSize: 8, bold: true, alignment: 'center' }],
+                      [{ text: 'INVENTARIO FÍSICO', fontSize: 10, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
+                      [{ text: 'N° ' + inventariofisico.nroinventario, fontSize: 8, bold: true, alignment: 'center' }],
 
                     ]
                   }
@@ -811,15 +818,16 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
           {
             columns: [
               [ {
-                margin: [0, 0, 0, 0], //350 - 160
+                margin: [0, 50, 0, 0], //350 - 160
                   table: {
                     widths: ['*'],
                     body: [
-                      [{ text: 'DATOS DEL INVENTARIO FÍSICO', fontSize: 14, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
+                      [{ text: 'DATOS DEL INVENTARIO FÍSICO', fontSize: 10, bold: true, alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
                       [
-                      { text: [,inventariofisico.responsable.nombres + ' ' + inventariofisico.responsable.ape_PAT + ' ' + inventariofisico.responsable.ape_MAT +'\n',
-                      { text: 'Almacen: ', bold: true, fontSize: 14 },inventariofisico.id_SECTOR.id_ALMACEN.nom_ALMACEN +'\n',
-                      { text: 'Sector: ', bold: true, fontSize: 14 },inventariofisico.id_SECTOR.nom_SECTOR],
+                      { text: [ { text: 'Responsable: ', bold: true, fontSize:9 }, 
+                      { text: inventariofisico.responsable.nombres + ' ' + inventariofisico.responsable.ape_PAT + ' ' + inventariofisico.responsable.ape_MAT +'\n', fontSize:8} ,
+                      { text: 'Almacen: ', bold: true, fontSize: 9}, { text: inventariofisico.id_SECTOR.id_ALMACEN.nom_ALMACEN +'\n', fontSize: 8},
+                      { text: 'Sector: ', bold: true, fontSize: 9 }, { text: inventariofisico.id_SECTOR.nom_SECTOR, fontSize: 8}],
                        },
                     ]
                     ]
@@ -833,30 +841,37 @@ import { Ordenprod } from './ordenprod/ordenprod';*/
             text: [ 'DETALLE DEL INVENTARIO FÍSICO'],
             style: 'sectionHeader',
             bold: true,
-            fontSize:16,
+            fontSize:10,
             decoration: 'underline',
             alignment: 'center',
             margin: [0, 15, 0, 15]
           },
           {
             table: {
+              fontSize:7,
               headerRows: 1,
-              widths: ['*', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+              widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', '*'],
+              height:['*'],
               body: [
-                [
-                  { text: 'Producto', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
-                  { text: 'Marca', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
-                  { text: 'Unid. Medida', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
-                  { text: 'Sistema', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
-                  { text: 'Fisico', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
-                  { text: 'Diferencia', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
-                  { text: 'Observaciones', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }
-                ],
-                ...inventariofisico.items.map(p => ([ p.id_PRODUCTO.nombre, { text: p.id_PRODUCTO.id_MARCA.nom_MARCA, alignment: 'center' },
-                 { text: p.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA, alignment: 'center' }, { text: p.cantidadsistema, alignment: 'center' },
-                 { text: p.cantidad, alignment: 'center' }, { text: p.diferencia, alignment: 'center' }, { text: p.observacion, alignment: 'center' }])),
+                
+                  [ { text: 'PRODUCTO', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }, { text: 'MARCA', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }
+                  , { text: 'UND', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }, { text: 'CANT. S', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                    { text: 'CANT. F', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },
+                    { text: 'DIF', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' },{ text: 'OBSERVACIONES', alignment: 'center', fillColor: '#000000', color: '#FFFFFF' }],
+                  [
+                    [...inventariofisico.items.map(p => [{ text: p.id_PRODUCTO.nombre, fontSize:6.5,margin:[0, 5, 0, 0]}])],
+                    [...inventariofisico.items.map(p => [{ text: p.id_PRODUCTO.id_MARCA.nom_MARCA, fontSize:6.5,margin:[0, 5, 0, 0] } ])],
+                    [...inventariofisico.items.map(p => [{ text:p.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA, fontSize:6.5,margin:[0, 5, 0, 0] } ])],
+                    [...inventariofisico.items.map(p => [{ text: p.cantidadsistema, fontSize:6.5, alignment: 'center',margin:[0, 5, 0, 0] } ])],
+                    [...inventariofisico.items.map(p => [{ text: p.cantidad, fontSize:6.5, alignment: 'center',margin:[0, 5, 0, 0] } ])],
+                    [...inventariofisico.items.map(p => [{ text: p.diferencia, fontSize:6.5, alignment: 'center',margin:[0, 5, 0, 0] } ])],
+                    [...inventariofisico.items.map(p => [{ text: p.observacion, fontSize:6.5,margin:[0, 5, 0, 5] } ])]
+                  ]
+                
+              
                
-              ]
+              ],
+              
             }
           }
         ]
