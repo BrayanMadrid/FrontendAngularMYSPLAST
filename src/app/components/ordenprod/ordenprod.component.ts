@@ -83,42 +83,6 @@ export class OrdenprodComponent implements OnInit {
       confirmButtonText: 'Si, inventariar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        let ingreso: Ingreso = new Ingreso();
-        ingreso.id_PERSONA = ordenprod.id_PERSONA,
-          ingreso.id_SECTOR = ordenprod.id_SECTOR,
-          ingreso.nro_ORDEN = ordenprod.nro_ORDENPROD,
-          ingreso.categoriatransaccion = this.categoria
-        for (let numero of ordenprod.items) {
-
-          let ingresoitem: Itemtransaccion = new Itemtransaccion();
-          ingresoitem.cantidad = numero.cantidad,
-            ingresoitem.id_PRODUCTO = numero.id_PRODUCTO,
-            ingresoitem.linea = numero.line
-          ingreso.items.push(ingresoitem);
-
-        }
-        this.ingresoservice.crearWhingreso(ingreso).subscribe(response => { })
-
-        let egreso: Egreso = new Egreso();
-        egreso.categoriatransaccion = this.categoriaInsumos;
-        egreso.id_SECTOR = ordenprod.id_SECTORINSUMOS;
-        egreso.nro_ORDEN = ordenprod.nro_ORDENPROD;
-        egreso.id_PERSONA = ordenprod.id_PERSONA
-        for (let numero of ordenprod.items) {
-          let cantidadItem = numero.cantidad
-          this.recetaService.obtenerRecetaxProducto(numero.id_PRODUCTO.id_PRODUCTO).subscribe((receta)=>{
-            let line: number = 0;
-            for (let numero of receta.items) {
-              let egresoitem: Itemtransaccion = new Itemtransaccion();
-              egresoitem.cantidad = numero.cantidad*cantidadItem,
-              egresoitem.id_PRODUCTO = numero.id_PRODUCTO,
-              egresoitem.linea = line+1;
-              egreso.items.push(egresoitem);
-            }
-          this.egresoService.crearEgreso(egreso).subscribe(response => { })
-          })
-        }
-
         this.ordenprodservice.inventariarOrdenprod(ordenprod).subscribe(
           response => {
             this.ordenprods = this.ordenprods.filter(oc => oc !== ordenprod)
