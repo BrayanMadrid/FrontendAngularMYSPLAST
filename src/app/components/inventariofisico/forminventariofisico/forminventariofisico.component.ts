@@ -162,6 +162,7 @@ export class ForminventariofisicoComponent implements OnInit {
         $(function () {
           $("#inventariofisico").DataTable({
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching":false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
           }).buttons().container().appendTo('#inventariofisico_wrapper .col-md-6:eq(0)');
           /*    
              $('#example1').dataTable().fnClearTable();
