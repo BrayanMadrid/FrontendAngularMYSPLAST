@@ -1,8 +1,7 @@
 .navbar {
   width: calc(100% - #{$sidebar-width-lg});
   height: $navbar-height;
-  background: $card-bg;
-  border-bottom: 1px solid $sidebar-dark-border-color;
+  background: #ffffff;
   display: flex;
   align-items: center;
   padding: 0;
@@ -10,8 +9,8 @@
   right: 0;
   left: $sidebar-width-lg;
   z-index: 978;
-  -webkit-box-shadow: 3px 0 10px 0 #03060b;
-          box-shadow: 3px 0 10px 0 #03060b;
+  -webkit-box-shadow: 3px 0 1px 0 #03060b;
+          box-shadow: 3px 0 1px 0 #03060b;
   transition: width .1s ease, left .1s ease;
 
   @media(max-width: 991px) {

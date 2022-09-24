@@ -1,0 +1,77 @@
+<div class=" justify-content-between align-items-center flex-wrap grid-margin">
+
+    <div class="row">
+        <div class="col-12 col-xl-12 grid-margin stretch-card">
+            <div class="row flex-grow-1">
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <h6 class="card-title mb-0">Ordenes de Compra por Aprobar</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-5">
+                                    <div class="d-flex align-items-baseline">
+                                        <i class="feather icon-file"></i>
+                                        <h3 class="mb-2">{{ordenesCompraPendientes}}</h3>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <h6 class="card-title mb-0">Ordenes de Producción Por Aprobar</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-5">
+                                    <div class="d-flex align-items-baseline">
+                                        <i class="feather icon-layers"></i>
+                                        <h3 class="mb-2">{{ordenesProdPendientes}}</h3>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <h6 class="card-title mb-0">Inventarios Pendientes</h6>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-5">
+                                    <div class="d-flex align-items-baseline">
+                                        <i class="feather icon-codesandbox "></i>
+                                        <h3 class="mb-2">{{inventariosPendientes}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-xl-12 grid-margin stretch-card">
+            <div class="card overflow-hidden">
+                <div class="card-body">
+                    <h5 class="card-title">Gastos Mensuales Soles y Dólares</h5>
+                    <canvas id="canvas1" height="100px">
+                        {{chart1}}
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -3,7 +3,7 @@
   overflow: hidden;
   .page-wrapper {
     min-height: 100vh;
-    background: $content-bg;
+    background: #f9fafb;
     width: calc(100% - #{$sidebar-width-lg});
     margin-left: $sidebar-width-lg;
     display: flex;

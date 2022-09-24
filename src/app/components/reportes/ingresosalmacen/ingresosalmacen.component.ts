@@ -73,7 +73,7 @@ export class IngresosalmacenComponent implements OnInit {
           },
           options: {
               legend:{
-                      display:false,
+                     display:false,
               },
               title: {
                   display: true,

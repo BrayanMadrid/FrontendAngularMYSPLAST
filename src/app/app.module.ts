@@ -72,6 +72,8 @@ import { ItemordencompraComponent } from './components/itemordencompra/itemorden
 import { ItemordenprodComponent } from './components/itemordenprod/itemordenprod.component';
 import { ItemrecetaprodComponent } from './components/itemrecetaprod/itemrecetaprod.component';
 import { GastosComponent } from './components/reportes/gastos/gastos.component';
+import {NgApexchartsModule} from 'ng-apexcharts';
+import { DashboardComponent } from './components/dashboard/dashboard.component'
 
 @NgModule({
   declarations: [
@@ -110,7 +112,8 @@ import { GastosComponent } from './components/reportes/gastos/gastos.component';
     ItemordencompraComponent,
     ItemordenprodComponent,
     ItemrecetaprodComponent,
-    GastosComponent
+    GastosComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -125,6 +128,7 @@ import { GastosComponent } from './components/reportes/gastos/gastos.component';
     MatFormFieldModule,
     NgbModule,
     NgbAlertModule,
+    NgApexchartsModule
   ],
   providers: [
     AuthGuard,DistritoService,DepartamentoService,CentrocostoService,RolService,UsuarioRolesService, ProductoService, NaturalService, DistritoService,
