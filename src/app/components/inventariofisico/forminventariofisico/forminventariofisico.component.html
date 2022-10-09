@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-dark"
+                                <button style="font-weight: 500; font-size: 14px;background-color: #283593;" type="button" class="btn btn-block"
                     role="button"
                     (click)="cargarDataTabla()">BUSCAR</button>
                             </div>
@@ -98,15 +98,15 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <table id="inventariofisico" class="table table-bordered table-dark table-hover text-center">
+                                            <table id="inventariofisico"  class="table table-striped table-lg text-center">
                                                 <thead class="bg-primary">
                                                     <tr>
-                                                        <th class="text-dark col-sm-3">Producto</th>
-                                                        <th class="text-dark col-sm-1">Und. Medida</th>
-                                                        <th class="text-dark col-sm-1">Sistema</th>
-                                                        <th class="text-dark col-sm-2">Fisico</th>
-                                                        <th class="text-dark col-sm-1">Diferencia</th>
-                                                        <th class="text-dark col-sm-3">Observaciones</th>
+                                                        <th class="col-sm-3">Producto</th>
+                                                        <th class="col-sm-1">Und. Medida</th>
+                                                        <th class="col-sm-1">Sistema</th>
+                                                        <th class="col-sm-2">Fisico</th>
+                                                        <th class="col-sm-1">Diferencia</th>
+                                                        <th class="col-sm-3">Observaciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -137,7 +137,7 @@
                                                             <div class="form-group">
                                                                 <input style="font-weight: 500; font-size: 14px;"
                                                                     type="submit" value="REGISTRAR INVENTARIO FÍSICO"
-                                                                    class="btn btn-block  btn-outline-primary"
+                                                                    class="btn btn-block  btn-outline-success"
                                                                     [disabled]="role.form.invalid || inventariofisico.items.length == 0"
                                                                     (click)="create()">
                                                             </div>
@@ -146,7 +146,7 @@
                                                             <div class="form-group">
                                                                 <input style="font-weight: 500; font-size: 14px;"
                                                                     type="submit" value="VOLVER" [routerLink]="['/generalif/inventariofisico']"
-                                                                    class="btn btn-block btn-outline-danger">
+                                                                    class="btn btn-block btn-outline-primary">
                                                             </div>
                                                         </div><!-- Col -->
                                                     </div><!-- Row -->

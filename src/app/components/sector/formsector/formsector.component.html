@@ -4,7 +4,7 @@
             <div class="modal-header" style="display: block;">
                 <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title text-center">SECTOR</h3>
+                    <h2 class="modal-title text-center">REGISTRO DE SECTOR</h2>
             </div>
             <div class="modal-body">
 
@@ -60,16 +60,16 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">
-                            <button type="submit" class="btn btn-block btn-primary" role="button" (click)='create()'
+                            <button type="submit" class="btn btn-block btn-success" role="button" (click)='create()'
                                 *ngIf="!sector.id_SECTOR else elseBlock"
                                 [disabled]="!sectorForm.form.valid">CREAR</button>
                             <ng-template #elseBlock>
-                                <button type="submit" class="btn btn-primary pull-right btn-block" role="button"
+                                <button type="submit" class="btn btn-success pull-right btn-block" role="button"
                                     (click)='update()' [disabled]="!sectorForm.form.valid">ACTUALIZAR</button>
                             </ng-template>
                         </div>
                         <div class="col-sm-6">
-                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-danger"
+                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-primary"
                                 data-dismiss="modal">CERRAR</button>
                         </div>
                     </div>

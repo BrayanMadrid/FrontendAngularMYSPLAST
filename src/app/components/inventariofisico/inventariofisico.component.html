@@ -1,7 +1,9 @@
-<nav class="page-breadcrumb">
-    <h2 style="font-size: 30px;" class="page-title">INVENTARIO FÍSICO</h2>
-  </nav>
-  
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card" style="align-items: center;">
+    <img style="height: 50px; width: 50px; margin-right: 10px;" src="../../../assets/images/inventariofisico2.png" />
+    <h2 style="font-size: 30px; margin-bottom: 0px;" class="page-title">MÓDULO DE INVENTARIO FÍSICO</h2>
+  </div>
+</div>
   
   <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -54,13 +56,13 @@
             <div class="row">
               <div *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_LOGISTICA')" class="col-sm-6">
                 <div class="form-group">
-                  <button style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-dark"
+                  <button style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-success"
                   [routerLink]="['/generalif/forminventariofisico']"><i class="fa fa-user-plus"></i> CREAR INVENTARIO FÍSICO</button>
                 </div>
               </div><!-- Col -->
               <div class="col-sm-6">
                 <div class="form-group">
-                  <button style="font-weight: 500; font-size: 14px;" type="submit" class="btn btn-block btn-dark"
+                  <button style="font-weight: 500; font-size: 14px;background-color: #283593;" type="submit" class="btn btn-block"
                     role="button"
                     (click)="filtrarInventariofisicos(sector.value,fecha1.value, fecha2.value)">BUSCAR</button>
                 </div>
@@ -80,19 +82,19 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="table-responsive">
-                  <table id="inventariofisicos" class="table table-bordered table-dark table-hover text-center">
+                  <table id="inventariofisicos"  class="table table-striped table-lg text-center">
                     <thead class="bg-primary">
                       <tr>
-                        <th class="text-dark">Fecha</th>
-                        <th class="text-dark">Nro. Inventario</th>
-                        <th class="text-dark">Almacén</th>
-                        <th class="text-dark">Sector</th>
-                        <th class="text-dark">Responsable</th>
-                        <th class="text-dark">Estado</th>
-                        <th class="text-dark" *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_LOGISTICA')">Anular</th>
-                        <th class="text-dark">Aprobar</th>
-                        <th class="text-dark">Regularizar</th>
-                        <th class="text-dark">Imprimir</th>
+                        <th >Fecha</th>
+                        <th >Nro. Inventario</th>
+                        <th >Almacén</th>
+                        <th >Sector</th>
+                        <th >Responsable</th>
+                        <th >Estado</th>
+                        <th  *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_LOGISTICA')">Anular</th>
+                        <th >Aprobar</th>
+                        <th >Regularizar</th>
+                        <th >Imprimir</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -124,7 +126,7 @@
                         </td>
                         </ng-template>
                         <ng-template #elseButton>
-                          <td> <button type="button" class="btn btn-danger btn-icon btn-sm" name="anular"
+                          <td> <button type="button" class="btn btn-primary btn-icon btn-sm" name="anular"
                               (click)="anularInventarioFisico(inventariofisico)"><i class="feather icon-x-square"></i>
                             </button></td>
                         </ng-template>
@@ -155,7 +157,7 @@
                               (click)="regularizarInventarioFisico(inventariofisico)"><i class="feather icon-x-square"></i>
                             </button></td>
                         </ng-template>
-                        <td><button type="button" class="btn btn-primary btn-icon btn-sm"
+                        <td><button type="button" class="btn btn-warning btn-icon btn-sm"
                            name="visualizar"><i
                              (click)="createPDFInventariofisico(inventariofisico)" class="feather icon-printer"></i></button></td>
                       </tr>

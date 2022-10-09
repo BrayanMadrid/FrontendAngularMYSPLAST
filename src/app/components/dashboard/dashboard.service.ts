@@ -9,6 +9,8 @@ import { Inventariofisico } from '../inventariofisico/inventariofisico';
 import { OrdenCompra } from '../ordencompra/ordencompra';
 import { Ordenprod } from '../ordenprod/ordenprod';
 import { ConsultaGastosMes } from './consultagastosmes';
+import { TopProductosKardex } from './topproductoskardex';
+import { TopProductosProduccion } from './topproductosproduccion';
 
 
 @Injectable({
@@ -46,6 +48,32 @@ export class DashboardService {
     return false;
   }
 
+  topProductosProduccion(): Observable<TopProductosProduccion[]> {
+    return this.http.get<TopProductosProduccion[]>(`${this.urlEndpoint}/topproductosproduccion`, { headers: this.agregarAutorizationHeader() }).pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
+
+  topProductosEgresos(): Observable<TopProductosKardex[]> {
+    return this.http.get<TopProductosKardex[]>(`${this.urlEndpoint}/topproductosegresos`, { headers: this.agregarAutorizationHeader() }).pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
+
+  topProductosIngresos(): Observable<TopProductosKardex[]> {
+    return this.http.get<TopProductosKardex[]>(`${this.urlEndpoint}/topproductosingresos`, { headers: this.agregarAutorizationHeader() }).pipe(
+      catchError(e => {
+        this.isNoAutorizado(e);
+        return throwError(e);
+      })
+    );
+  }
 
   obtenerGastosMesLocal(): Observable<ConsultaGastosMes[]> {
     return this.http.get<ConsultaGastosMes[]>(`${this.urlEndpoint}/gastosmeslocal`, { headers: this.agregarAutorizationHeader() }).pipe(

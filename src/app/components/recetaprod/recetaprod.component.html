@@ -1,7 +1,10 @@
-<nav class="page-breadcrumb">
-  <h2 style="font-size: 30px;" class="page-title">RECETAS DE PRODUCCIÓN</h2>
-</nav>
-
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card" style="align-items: center;">
+    <img style="height: 50px; width: 50px; margin-right: 10px;" src="../../../assets/images/receta.png" />
+    <h2 style="font-size: 30px; margin-bottom: 0px;" class="page-title">MÓDULO DE RECETAS DE PRODUCCIÓN</h2>
+  </div>
+</div>
+  
 
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card">
@@ -45,13 +48,13 @@
             <div class="row">
             <div *ngIf="authService.hasRole('ROLE_ADMIN'||'ROLE_LOGISTICA')" class="col-sm-6">
               <div class="form-group">
-                <button style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-dark"
+                <button style="font-weight: 500; font-size: 14px;" type="button" class="btn btn-block btn-success"
                 [routerLink]="['/generalrc/formrecetaprod']"><i class="fa fa-user-plus"></i> CREAR RECETA DE PRODUCCIÓN</button>
               </div>
             </div><!-- Col -->
             <div class="col-sm-6">
               <div class="form-group">
-                <button style="font-weight: 500; font-size: 14px;" type="submit" class="btn btn-block btn-dark"
+                <button style="font-weight: 500; font-size: 14px; background-color: #283593;" type="submit" class="btn btn-block"
                   role="button"
                   (click)="filtrarKardex(nroreceta.value, nomreceta.value)">BUSCAR</button>
               </div>
@@ -72,16 +75,16 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="table-responsive">
-                <table id="recetaprods" class="table table-bordered table-dark table-hover text-center">
+                <table id="recetaprods" class="table table-striped table-lg text-center">
                   <thead class="bg-primary">
                     <tr>
-                      <th class="text-dark">Nro. Receta</th>
-                      <th class="text-dark">Nom. Receta</th>
-                      <th class="text-dark">Producto</th>
-                      <th class="text-dark">Fecha</th>
-                      <th class="text-dark">Estado</th>
-                      <th class="text-dark">Acciones</th>
-                      <th class="text-dark">Imprimir</th>
+                      <th>Nro. Receta</th>
+                      <th>Nom. Receta</th>
+                      <th>Producto</th>
+                      <th>Fecha</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                      <th>Imprimir</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -90,16 +93,16 @@
                       <td>{{receta.nom_RECETA}}</td>
                       <td>{{receta.id_PRODUCTO.nombre}}</td>
                       <td>{{receta.fecha}}</td>
-                      <td *ngIf="receta.estado =='N' else elseBlock"><span class="badge bg-danger">Anulado</span></td>
+                      <td *ngIf="receta.estado =='N' else elseBlock"><span class="badge bg-secundary">Anulado</span></td>
                     <ng-template #elseBlock>
                       <td><span class="badge bg-success">Activo</span></td>
                     </ng-template>
                     <td>
-                      <button style="margin-left: 2px;" type="button" class="btn btn-danger btn-icon btn-sm" name="anular"
+                      <button style="margin-left: 2px;" type="button" class="btn btn-primary btn-icon btn-sm" name="anular"
                         (click)='anularRecetaprod(receta)'><i class="feather icon-edit"></i>
                       </button>
                     </td>
-                    <td><button type="button" class="btn btn-primary btn-icon btn-sm"
+                    <td><button type="button" class="btn btn-warning btn-icon btn-sm"
                       (click)="createPDFReceta(receta)" name="visualizar"><i
                         class="feather icon-printer"></i></button></td>
                     </tr>

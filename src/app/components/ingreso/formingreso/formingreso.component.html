@@ -142,14 +142,14 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <table class="table table-bordered table-dark table-hover text-center">
+                                            <table class="table table-striped table-lg text-center">
                                                 <thead class="bg-primary">
                                                     <tr>
-                                                        <th class="text-dark">Línea</th>
-                                                        <th class="sorting col-sm-5 text-dark">Producto</th>
-                                                        <th class="sorting col-sm-2 text-dark">Cantidad</th>
-                                                        <th class="text-dark">Und. Medida</th>
-                                                        <th class="text-dark">Eliminar</th>
+                                                        <th >Línea</th>
+                                                        <th class="sorting col-sm-5">Producto</th>
+                                                        <th class="sorting col-sm-2">Cantidad</th>
+                                                        <th >Und. Medida</th>
+                                                        <th >Eliminar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -162,7 +162,7 @@
                                                         </td>
                                                         <td>{{item.id_PRODUCTO.id_UNMEDIDA.nom_UNMEDIDA}}</td>
                                                         <td>
-                                                            <button class="btn btn-danger btn-sm btn-icon" type="button"
+                                                            <button class="btn btn-primary btn-sm btn-icon" type="button"
                                                                 (click)="eliminarItemIngreso(item.id_PRODUCTO.id_PRODUCTO)"><i class="feather icon-x-square"></i></button>
                                                         </td>
                                                     </tr>
@@ -182,7 +182,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <input style="font-weight: 500; font-size: 14px;" type="submit" value="REGISTRAR INGRESO"
-                                                                    class="btn btn-block  btn-outline-primary"
+                                                                    class="btn btn-block  btn-outline-success"
                                                                     [disabled]="role.form.invalid || ingreso.items.length == 0"
                                                                     (click)="create()">
                                                             </div>
@@ -190,7 +190,7 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group">
                                                                 <input style="font-weight: 500; font-size: 14px;" [routerLink]="['/generalwi/ingreso']" type="submit" value="VOLVER"
-                                                                    class="btn btn-block btn-outline-danger">
+                                                                    class="btn btn-block btn-outline-primary">
                                                             </div>
                                                         </div><!-- Col -->
                                                     </div><!-- Row -->

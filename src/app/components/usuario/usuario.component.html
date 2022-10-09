@@ -1,35 +1,38 @@
-<nav class="page-breadcrumb">
-    <h2 style="font-size: 30px;" class="page-title">USUARIOS</h2>
-</nav>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card" style="align-items: center;">
+      <img style="height: 50px; width: 50px; margin-right: 10px;" src="../../../assets/images/usuarios.png" />
+      <h2 style="font-size: 30px; margin-bottom: 0px;" class="page-title">MÓDULO DE USUARIOS</h2>
+    </div>
+  </div>
 
 
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h6 style="font-weight: 500; font-size: 16px;" class="card-title">REGISTRAR NUEVO USUARIO</h6>
-                <form>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-
-                                <div>
-                                    <button style="font-weight: 600; font-size: 13px;" type="button"
-                                        class="btn btn-primary btn-icon-text" [routerLink]="['/generalus/formusuario']">
-                                        <i class="feather icon-plus-square btn-icon-prepend"></i>
-                                        CREAR
-                                    </button>
-
-
-                                </div>
-                            </div>
-                        </div><!-- Col -->
-                    </div>
-                </form>
+      <div class="card">
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-sm-5" style="align-self: center ;">
+                <h6 style="font-weight: 500; font-size: 16px; margin-bottom: 0px;" class="card-title">REGISTRAR NUEVO
+                  USUARIO</h6>
+  
+              </div><!-- Col -->
+              <div class="col-sm-7" style="text-align:right;">
+                <div>
+                    <button style="font-weight: 600; font-size: 13px; width: 200px; justify-content: center;" type="button"
+                    class="btn btn-primary btn-icon-text" [routerLink]="['/generalus/formusuario']">
+                    <i class="feather icon-plus-square btn-icon-prepend"></i>
+                    CREAR
+                </button>
+                </div>
+              </div><!-- Col -->
+  
             </div>
+          </form>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
 <div class="row">
     <div class="col-md-12 stretch-card">
@@ -40,16 +43,16 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="table-responsive">
-                                <table id="usuarios" class="table table-bordered table-dark table-hover text-center">
+                                <table id="usuarios"  class="table table-striped table-lg text-center">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th class="text-dark">Usuario</th>
-                                            <th class="text-dark">Nombres y Apellidos</th>
-                                            <th class="text-dark">Correo</th>
-                                            <th class="text-dark">Estado</th>
-                                            <th class="text-dark">Estado</th>
-                                            <th class="text-dark">Edit Pass</th>
-                                            <th class="text-dark">Acciones</th>
+                                            <th>Usuario</th>
+                                            <th>Nombres y Apellidos</th>
+                                            <th>Correo</th>
+                                            <th>Estado</th>
+                                            <th>Estado</th>
+                                            <th>Edit Pass</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -83,12 +86,12 @@
 
                                             <td>
                                                 <button style="margin-right: 2px;" type="button"
-                                                    class="btn btn-primary btn-icon btn-sm" name="actualizar"
+                                                    class="btn btn-warning btn-icon btn-sm" name="actualizar"
                                                     [routerLink]="['/generalus/formedituser',usuario.id]"><i
                                                         class="feather icon-edit"></i>
                                                 </button>
                                                 <button style="margin-left: 2px;" type="button"
-                                                    class="btn btn-danger btn-icon btn-sm" name="eliminar"
+                                                    class="btn btn-primary btn-icon btn-sm" name="eliminar"
                                                     (click)='delete(usuario)'><i class="feather icon-x-square"></i>
                                                 </button>
                                             </td>

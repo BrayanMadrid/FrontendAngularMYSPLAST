@@ -1,6 +1,9 @@
-<nav class="page-breadcrumb">
-    <h2 style="font-size: 30px;" class="page-title">STOCK DE PRODUCTOS</h2>
-  </nav>
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card" style="align-items: center;">
+    <img style="height: 50px; width: 50px; margin-right: 10px;" src="../../../assets/images/stock.png" />
+    <h2 style="font-size: 30px; margin-bottom: 0px;" class="page-title">STOCK DE PRODUCTOS</h2>
+  </div>
+</div>
   
   
   <div class="row">
@@ -52,7 +55,7 @@
               </div><!-- Col -->
               <div class="col-sm-3">
                 <div class="form-group">
-                  <button style="font-weight: 500; font-size: 14px; margin-top: 30px;" type="submit" class="btn btn-block btn-dark"
+                  <button style="font-weight: 500; font-size: 14px; margin-top: 30px; background-color: #283593;" type="submit" class="btn btn-block"
                     role="button"
                     (click)="filtrarStock(sector.value, almacen.value)">BUSCAR</button>
                 </div>
@@ -72,15 +75,15 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="table-responsive">
-                  <table  id="productostocks" class="table table-bordered table-dark table-hover text-center">
+                  <table  id="productostocks" class="table table-striped table-lg text-center">
                     <thead class="bg-primary">
                       <tr>
-                        <th class="text-dark">Producto</th>
-                        <th class="text-dark">Marca</th>
-                        <th class="text-dark">Almacén</th>
-                        <th class="text-dark">Sub. Almacén</th>
-                        <th class="text-dark">Cantidad</th>
-                        <th class="text-dark">Und. Medida</th>
+                        <th>Producto</th>
+                        <th>Marca</th>
+                        <th>Almacén</th>
+                        <th>Sub. Almacén</th>
+                        <th>Cantidad</th>
+                        <th>Und. Medida</th>
                       </tr>
                     </thead>
                     <tbody>

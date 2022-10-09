@@ -4,7 +4,7 @@
             <div class="modal-header" style="display: block;">
                 <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title text-center">PERSONA NATURAL</h3>
+                <h2 class="modal-title text-center">REGISTRO DE PERSONA NATURAL</h2>
             </div>
             <div class="modal-body">
 
@@ -89,7 +89,7 @@
                                     <form #empresaForm="ngForm">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <div class="form-group">
+                                                <div >
                                                     <label for="nombres">NOMBRES</label>
                                                     <input type="text" class="form-control"
                                                         [(ngModel)]="natural.nombres" name="nombres" required pattern="[a-zA-Z ]{2,254}"
@@ -229,16 +229,16 @@
 
                     <div class="row">
                         <div class="col-sm-6">
-                            <button type="submit" class="btn btn-block btn-primary" role="button" (click)='create()'
+                            <button type="submit" class="btn btn-block btn-success" role="button" (click)='create()'
                                 *ngIf="!natural.id_PERSONA else elseBlock"
                                 [disabled]="!empresaForm.form.valid">CREAR</button>
                             <ng-template #elseBlock>
-                                <button type="button" class="btn btn-block btn-primary" 
+                                <button type="button" class="btn btn-block btn-success" 
                                     (click)='update()' [disabled]="!empresaForm.form.valid">Actualizar</button>
                             </ng-template>
                         </div>
                         <div class="col-sm-6">
-                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-danger"
+                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-primary"
                                 data-dismiss="modal">CERRAR</button>
                         </div>
                     </div><!-- Row -->

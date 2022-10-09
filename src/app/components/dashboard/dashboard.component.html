@@ -6,11 +6,11 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Ordenes de Compra por Aprobar</h6>
-                            </div>
                             <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
+                                <div class="col-6 col-md-12 col-xl-9">
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <h6 class="card-title mb-0">Ordenes de Compra por Aprobar</h6>
+                                    </div>
                                     <div class="d-flex align-items-baseline">
                                         <i class="feather icon-file"></i>
                                         <h3 class="mb-2">{{ordenesCompraPendientes}}</h3>
@@ -18,23 +18,10 @@
 
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 grid-margin stretch-card">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Ordenes de Producción Por Aprobar</h6>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
-                                    <div class="d-flex align-items-baseline">
-                                        <i class="feather icon-layers"></i>
-                                        <h3 class="mb-2">{{ordenesProdPendientes}}</h3>
-
-
+                                <div>
+                                    <div class="mt-md-3 mt-xl-0">
+                                        <img style="height: 50px; width: 50px;"
+                                            src="../../../assets/images/ordencompra.png" />
                                     </div>
                                 </div>
                             </div>
@@ -44,14 +31,46 @@
                 <div class="col-md-4 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-baseline">
-                                <h6 class="card-title mb-0">Inventarios Pendientes</h6>
-                            </div>
                             <div class="row">
-                                <div class="col-6 col-md-12 col-xl-5">
+                                <div class="col-6 col-md-12 col-xl-9">
+
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <h6 class="card-title mb-0">Ordenes de Producción Por Aprobar</h6>
+                                    </div>
+                                    <div class="d-flex align-items-baseline">
+                                        <i class="feather icon-layers"></i>
+                                        <h3 class="mb-2">{{ordenesProdPendientes}}</h3>
+
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="mt-md-3 mt-xl-0">
+                                        <img style="height: 50px; width: 50px;"
+                                            src="../../../assets/images/ordenprod.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-9">
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <h6 class="card-title mb-0">Inventarios Pendientes</h6>
+                                    </div>
                                     <div class="d-flex align-items-baseline">
                                         <i class="feather icon-codesandbox "></i>
                                         <h3 class="mb-2">{{inventariosPendientes}}</h3>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="mt-md-3 mt-xl-0">
+                                        <img style="height: 50px; width: 50px;"
+                                            src="../../../assets/images/inventariofisico.png" />
                                     </div>
                                 </div>
                             </div>
@@ -69,6 +88,100 @@
                     <canvas id="canvas1" height="100px">
                         {{chart1}}
                     </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5 col-xl-6 grid-margin stretch-card">
+            <div class="card overflow-hidden">
+                <div class="card-body">
+                    <h5 class="card-title">Top 5 Productos Egresos</h5>
+                    <canvas id="canvas2" height="100px">
+                        {{chart2}}
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-xl-6 grid-margin stretch-card">
+            <div class="card overflow-hidden">
+                <div class="card-body">
+                    <h5 class="card-title">Top 5 Productos Ingresos</h5>
+                    <canvas id="canvas3" height="100px">
+                        {{chart3}}
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-12 col-xl-12 grid-margin stretch-card">
+            <div class="row flex-grow-1">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card" style="align-items: center;">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-baseline">
+                                <h6 class="card-title mb-0">TOP PRODUCTOS CON MÁS PRODUCCIÓN</h6>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+        <div class="col-12 col-xl-12 grid-margin stretch-card">
+            <div class="row flex-grow-1">
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card" >
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-9">
+                                    <div class="d-flex justify-content-between align-items-baseline" >
+                                        <h6 class="card-title mb-0">{{top1ProductoProduccion.nombre + ' - ' + top1ProductoProduccion.unmedida}}</h6>
+                                    </div>
+                                    <div class="d-flex align-items-baseline">
+                                        <i class="feather icon-file-text"></i>
+                                        <h3 class="mb-2">{{top1ProductoProduccion.cantidad}}</h3>
+
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="mt-md-3 mt-xl-0">
+                                        <img style="height: 50px; width: 50px;"
+                                            src="../../../assets/images/firstprod.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6 col-md-12 col-xl-9">
+
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <h6 class="card-title mb-0">{{top2ProductoProduccion.nombre + ' - ' + top2ProductoProduccion.unmedida}}</h6>
+                                    </div>
+                                    <div class="d-flex align-items-baseline">
+                                        <i class="feather icon-file-text"></i>
+                                        <h3 class="mb-2">{{top2ProductoProduccion.cantidad}}</h3>
+
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="mt-md-3 mt-xl-0">
+                                        <img style="height: 50px; width: 50px;"
+                                            src="../../../assets/images/secondprod.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

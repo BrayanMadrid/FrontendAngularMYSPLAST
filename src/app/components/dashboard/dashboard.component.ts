@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './dashboard.service';
 import { Chart, ChartConfiguration, LinearScale} from 'chart.js'
+import { TopProductosProduccion } from './topproductosproduccion';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ export class DashboardComponent implements OnInit {
 
   public chart2: any = null;
 
+  public chart3: any = null;
+
   ordenesCompraPendientes: number = 0;
 
   ordenesProdPendientes: number = 0;
@@ -21,7 +24,20 @@ export class DashboardComponent implements OnInit {
   inventariosPendientes: number = 0;
 
   dataLocal: number[] = [];
+
   dataExtranjera: number[] = [];
+
+  dataTopProductosEgresos: number[] = [];
+
+  labelTopProductosEgresos: string[] = [];
+
+  dataTopProductosIngresos: number[] = [];
+
+  labelTopProductosIngresos: string[] = [];
+
+  top1ProductoProduccion: TopProductosProduccion = null;
+
+  top2ProductoProduccion: TopProductosProduccion = null;
 
   meses= ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre","Noviembre","Diciembre"];
 
@@ -32,6 +48,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPendientes();
     this.dashBoardGastosMesLocal();
+    this.obtenerTopProductosEgresosIngresos();
+    this.obtenerTopProductosProduccion();
   }
 
   dashBoardGastosMesLocal(){
@@ -64,14 +82,14 @@ export class DashboardComponent implements OnInit {
             {
               label: 'Soles',
               data: this.dataLocal,
-              borderColor: '#d50000',
+              borderColor: '#d5000080',
               backgroundColor: '#ffffff10',
               fill: false,
             },
             {
               label: 'Dolares',
               data: this.dataExtranjera,
-              borderColor: '#fdd835',
+              borderColor: '#fdd83580',
               backgroundColor: '#ffffff10',
               fill: false,
             }
@@ -107,5 +125,99 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  obtenerTopProductosEgresosIngresos(){
+    this.dashboardService.topProductosEgresos().subscribe((data)=>{
+      for(let item of data){
+        this.dataTopProductosEgresos.push(item.cantidad)
+        this.labelTopProductosEgresos.push(item.nombre)
+      }
 
+      this.chart2 = new Chart('canvas2',{
+
+        type: 'pie',
+        data: {
+          labels: this.labelTopProductosEgresos,
+          datasets: [
+            {
+              data: this.dataTopProductosEgresos,
+              borderWidth: 1,
+              backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60', '#884EA0', '#D35400'],
+            }
+          ]
+        },
+         options:{
+          
+        plugins:{
+          legend: {
+            onHover: this.handleHover,
+            onLeave: this.handleLeave
+          }
+        }
+         } 
+      })
+
+    })
+
+
+    this.dashboardService.topProductosIngresos().subscribe((data)=>{
+      for(let item of data){
+        this.dataTopProductosIngresos.push(item.cantidad)
+        this.labelTopProductosIngresos.push(item.nombre)
+      }
+
+      this.chart3 = new Chart('canvas3',{
+
+        type: 'pie',
+        data: {
+          labels: this.labelTopProductosIngresos,
+          datasets: [
+            {
+              data: this.dataTopProductosIngresos,
+              borderWidth: 1,
+              backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60', '#884EA0', '#D35400'],
+            }
+          ]
+        },
+         options:{
+          
+        plugins:{
+          legend: {
+            onHover: this.handleHover,
+            onLeave: this.handleLeave
+          }
+        }
+         } 
+      })
+
+    })
+
+
+  }
+
+  handleHover(evt, item, legend) {
+    legend.chart.data.datasets[0].backgroundColor.forEach((color, index, colors) => {
+      colors[index] = index === item.index || color.length === 9 ? color : color + '4D';
+    });
+    legend.chart.update();
+  }
+
+  handleLeave(evt, item, legend) {
+    legend.chart.data.datasets[0].backgroundColor.forEach((color, index, colors) => {
+      colors[index] = color.length === 9 ? color.slice(0, -2) : color;
+    });
+    legend.chart.update();
+  }
+
+  obtenerTopProductosProduccion(){
+    this.dashboardService.topProductosProduccion().subscribe((data)=>{
+      for (let item of data){
+        if(this.top1ProductoProduccion == null){
+          this.top1ProductoProduccion = item
+        } else {
+          this.top2ProductoProduccion = item
+        }
+
+      }
+    })
+  }
 }

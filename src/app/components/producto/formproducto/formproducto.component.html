@@ -6,7 +6,7 @@
             <div class="modal-header" style="display: block;">
                 <button (click)="cerrarModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title text-center">PRODUCTO</h3>
+                    <h2 class="modal-title text-center">REGISTRO DE PRODUCTO</h2>
             </div>
             <div class="modal-body">
 
@@ -133,7 +133,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">
-                            <button type="submit" class="btn btn-block btn-primary" role="button" (click)='create()'
+                            <button type="submit" class="btn btn-block btn-success" role="button" (click)='create()'
                                 *ngIf="!producto.id_PRODUCTO else elseBlock"
                                 [disabled]="!productoForm.form.valid">CREAR</button>
                             <ng-template #elseBlock>
@@ -142,7 +142,7 @@
                             </ng-template>
                         </div>
                         <div class="col-sm-6">
-                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-danger"
+                            <button (click)="cerrarModal()" type="submit" role="button" class="btn btn-block btn-primary"
                                 data-dismiss="modal">CERRAR</button>
                         </div>
                     </div><!-- Row -->
