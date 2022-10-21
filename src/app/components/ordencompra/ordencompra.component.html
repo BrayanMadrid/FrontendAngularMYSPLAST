@@ -1,3 +1,5 @@
+<app-despachocompra *ngIf="modalService.modal" [ordencompra]="ordencompraSeleccionado"></app-despachocompra>
+
 <div class="row">
   <div class="col-md-12 grid-margin stretch-card" style="align-items: center;">
     <img style="height: 50px; width: 50px; margin-right: 10px;" src="../../../assets/images/ordencompra2.png" />
@@ -161,7 +163,7 @@
                       </ng-template>
                         <ng-template #elseButtonDesp>
                           <td> <button type="button" class="btn btn-success btn-icon btn-sm" name="anular"
-                              (click)="despacharOrdenCompra(ordencompra)"><i class="feather icon-check-square"></i>
+                             (click)="abrirModal(ordencompra)"><i class="feather icon-check-square"></i>
                             </button></td>
                         </ng-template>
                         <td><button type="button" class="btn btn-warning btn-icon btn-sm"

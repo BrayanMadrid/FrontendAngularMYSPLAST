@@ -47,6 +47,7 @@
                 <table id="productos"  class="table table-bordered table-lg text-center">
                   <thead class="bg-primary">
                     <tr>
+                      <th class="col-md-5">Código</th>
                       <th class="col-md-9">Nombre</th>
                       <th class="col-md-9">Un. Med.</th>
                       <th class="col-md-9">Marca</th>
@@ -58,6 +59,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let producto of productos">
+                      <td>{{producto.codexterno}}</td>
                       <td>{{producto.nombre}}</td>
                       <td>{{producto.id_UNMEDIDA.nom_UNMEDIDA}}</td>
                       <td>{{producto.id_MARCA.nom_MARCA}}</td>

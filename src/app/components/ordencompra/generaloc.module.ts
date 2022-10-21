@@ -16,6 +16,7 @@ import { FormordencompraComponent } from './formordencompra/formordencompra.comp
 import { OrdencompraComponent } from './ordencompra.component';
 import { FindjuridicaocComponent } from '../juridica/findjuridicaoc/findjuridicaoc.component';
 import { FindnaturalocComponent } from '../natural/findnaturaloc/findnaturaloc.component';
+import { DespachocompraComponent } from './despachocompra/despachocompra.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [GeneralocComponent, FormordencompraComponent, OrdencompraComponent, 
-    FindjuridicaocComponent, FindnaturalocComponent],
+    FindjuridicaocComponent, FindnaturalocComponent, DespachocompraComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

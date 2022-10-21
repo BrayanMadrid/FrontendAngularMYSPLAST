@@ -27,6 +27,12 @@
                         La Unidad de Medida es requerida
                     </div>
                 </div>
+                <div class="alert alert-danger" *ngIf="codexterno.invalid && (codexterno.dirty || codexterno.touched)">
+                    <div *ngIf="codexterno.errors.required">
+                        El código del producto es obligatorio!
+                    </div>
+                </div>
+
 
                 <div class="card">
                     <div class="row">
@@ -86,7 +92,7 @@
                                             </div><!-- Col -->
                                             </div>
                                             <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="unmedida">UND. MEDIDA</label>
                                                     <select [compareWith]="compararUnmedida" class="form-control"
@@ -97,7 +103,7 @@
                                                     </select>
                                                 </div>
                                             </div><!-- Col -->
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label for="produccion">PRODUCCIÓN</label>
                                                     <select  class="form-control"
@@ -108,7 +114,7 @@
                                                     </select>
                                                 </div>
                                             </div><!-- Col -->
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label for="insumo">INSUMO</label>
                                                     <select  class="form-control"
@@ -117,6 +123,15 @@
                                                             <option  value="Y">Si</option>
                                                             <option  value="N">No</option>
                                                     </select>
+                                                </div>
+                                            </div><!-- Col -->
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label for="codexterno">CÓDIGO EXTERNO</label>
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="producto.codexterno" name="codexterno" required
+                                                        #codexterno="ngModel"
+                                                        placeholder="Ingrese el código externo del producto">
                                                 </div>
                                             </div><!-- Col -->
                                         </div><!-- Row -->

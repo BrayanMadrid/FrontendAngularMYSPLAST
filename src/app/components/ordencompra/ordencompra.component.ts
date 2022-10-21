@@ -65,11 +65,12 @@ export class OrdencompraComponent implements OnInit {
     })
   }
 
-  despacharOrdenCompra(ordencompra: OrdenCompra): void {
+ /* despacharOrdenCompra(ordencompra: OrdenCompra): void {
     Swal.fire({
       title: "<b><h1 style='color:#311b92'>" + '¿Está seguro que desea Despachar la Orden de Compra?' + "</h1></b>",
       html: '<b><h3 style="color:#263238">Seleccione la fecha de Despacho e Ingrese la Guía de Remisión para poder Continuar!</h3></b>' +
-        '<div class="col"><div class="box-body"><div class="form-group"><label for="">Documento de Referencia</label><div><input id="docreferencia" type="text" required #docreferencia></div></div></div></div></div>',
+        '<div class="col"><div class="box-body"><div class="form-group"><label for="">Documento de Referencia</label><div><input id="docreferencia" type="text" required #docreferencia></div></div></div></div></div>' +
+        ' <tr *ngFor="let item of ordencompra.items"><td>'+ordencompra.items+'</td></tr>',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -118,7 +119,7 @@ export class OrdencompraComponent implements OnInit {
         }
       }
     });
-  }
+  }*/
 
   anularOrdenCompra(ordencompra: OrdenCompra): void {
     Swal.fire({
@@ -131,9 +132,7 @@ export class OrdencompraComponent implements OnInit {
       confirmButtonText: 'Si, anular!'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(ordencompra.estado)
         if(ordencompra.estado=="I"){
-          console.log(ordencompra.estado)
           this.ingresoservice.obtenerIngresoxOrden(ordencompra.nroordencompra).subscribe((ingreso)=>{
 
             Swal.fire(

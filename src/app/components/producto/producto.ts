@@ -7,6 +7,7 @@ export class Producto{
     id_PRODUCTO: string;
     nombre: string;
     desc_PRODUCTO: string;
+    codexterno: string;
     flag_PRODUCCION: string;
     flag_INSUMO: string;
     estado: string;
