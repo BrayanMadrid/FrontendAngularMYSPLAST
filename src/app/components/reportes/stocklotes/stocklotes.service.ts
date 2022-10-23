@@ -5,13 +5,12 @@ import { catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { AuthService } from 'src/app/views/pages/auth/login/auth.service';
 import { Router } from '@angular/router';
-import { Stock } from './stock';
-
+import { ConsultaLotes } from './consultalotes';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StockService {
+export class StocklotesService {
 
   private urlEndpoint: string = 'http://localhost:8080/reporte';
 
@@ -41,8 +40,8 @@ export class StockService {
   }
 
 
-  obtenerProductoStockFiltro(subalm, alm, prod): Observable<Stock[]>{
-    return this.http.get<Stock[]>(`${this.urlEndpoint}/filtrostock?subalm=${subalm}&alm=${alm}&prod=${prod}`, {headers: this.agregarAutorizationHeader()}).pipe(
+  consultarLotes(fecha1, fecha2): Observable<ConsultaLotes[]>{
+    return this.http.get<ConsultaLotes[]>(`${this.urlEndpoint}/consultalotes?fecha1=${fecha1}&fecha2=${fecha2}`, {headers: this.agregarAutorizationHeader()}).pipe(
       catchError(e=>{
         console.error(e.error.mensaje);
         if(this.isNoAutorizado(e)){
@@ -59,24 +58,4 @@ export class StockService {
     );
   }
 
-  
-  obtenerStockXSector(sector): Observable<Stock[]>{
-    return this.http.get<Stock[]>(`${this.urlEndpoint}/stock/sector?sector=${sector}`, {headers: this.agregarAutorizationHeader()}).pipe(
-      catchError(e=>{
-        console.error(e.error.mensaje);
-        if(this.isNoAutorizado(e)){
-          return throwError(e);
-        }
-        Swal.fire({
-          icon: 'error',
-          title: "<b><h1 style='color:red'>" + 'Error!' + "</h1></b>",
-          text: e.error.mensaje,
-          
-        })
-        return throwError(e); 
-      })
-    );
-  }
-
-  
 }

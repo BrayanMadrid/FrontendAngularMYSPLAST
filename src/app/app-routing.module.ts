@@ -18,6 +18,7 @@ import { StockComponent } from './components/reportes/stock/stock.component';
 import { IngresosalmacenComponent } from './components/reportes/ingresosalmacen/ingresosalmacen.component';
 import { GastosComponent } from './components/reportes/gastos/gastos.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { StocklotesComponent } from './components/reportes/stocklotes/stocklotes.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
       { path: 'ingresosalmacen', component: IngresosalmacenComponent},
       { path: 'gastos', component: GastosComponent},
       { path: 'dashboard', component: DashboardComponent},
+      { path: 'stocklotes', component: StocklotesComponent},
       {
         path: 'generalwi',
         loadChildren: () => import('./components/ingreso/generalwi.module').then(m => m.GeneralwiModule)

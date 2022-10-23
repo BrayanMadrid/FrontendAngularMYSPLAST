@@ -143,6 +143,10 @@ export const MENU: MenuItem[] = [
         label: 'In. Por Sub. Almacen',
         link: '/ingresosalmacen',
       },
+      {
+        label: 'Stock x Lotes',
+        link: '/stocklotes'
+      }
     ]
   },
   

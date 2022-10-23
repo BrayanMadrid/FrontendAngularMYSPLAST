@@ -14,12 +14,9 @@ import { IngresoService } from '../ingreso/ingreso.service';
 import { SectorService } from '../sector/sector.service';
 import { AlmacenService } from '../almacen/almacen.service';
 import { CategoriatransaccionService } from '../categoriatransaccion/categoriatransaccion.service';
-import { Itemtransaccion } from '../itemtransaccion/itemtransaccion';
 import { Ordenprod } from './ordenprod';
 import { OrdenprodService } from './ordenprod.service';
-import { Egreso } from '../egreso/egreso';
 import { RecetaprodService } from '../recetaprod/recetaprod.service';
-import { Recetaprod } from '../recetaprod/recetaprod';
 import { EgresoService } from '../egreso/egreso.service';
 
 
